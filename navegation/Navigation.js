@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { color, Icon } from 'react-native-elements'
 
-import Account from '../screens/Account'
+import Account from '../cuentas/Account'
 import Buscar from '../screens/Buscar'
 import Favoritos from '../screens/Favoritos'
 import Mascotas from '../screens/Mascotas'

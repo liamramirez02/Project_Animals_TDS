@@ -17,23 +17,28 @@ export default function Navigation() {
         <Tab.Navigator>
             <Tab.Screen
                 name="Cuenta"
-                component={Account} 
+                component={Account}
+                options={{title: "Cuenta" }} 
             />
             <Tab.Screen
                 name="Buscar"
-                component={Buscar} 
+                component={Buscar}
+                options={{title: "Buscar" }} 
             />
             <Tab.Screen
                 name="Favoritos"
                 component={Favoritos} 
+                options={{title: "Favoritos" }}
             />
             <Tab.Screen
                 name="Mascotas"
                 component={Mascotas} 
+                options={{title: "Mascotas" }}
             />
             <Tab.Screen
                 name="Ranking"
                 component={TopAnimals} 
+                options={{title: "Ranking" }}
             />
         </Tab.Navigator>
     </NavigationContainer>

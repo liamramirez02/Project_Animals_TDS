@@ -9,9 +9,9 @@ export default function BuscarStack() {
   return (
     <Stack.Navigator>
         <Stack.Screen
-            name="Buscar"
+            name="B2"
             component={Buscar}
-            options={{ title: "Buscar" }}
+            options={{ title: "Buscar", headerShown: false }}
         />
     </Stack.Navigator>
   )

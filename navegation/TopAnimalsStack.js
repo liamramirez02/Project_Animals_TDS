@@ -9,9 +9,9 @@ export default function TopAnimalsStack() {
   return (
     <Stack.Navigator>
         <Stack.Screen
-            name="TopAnimals"
+            name="T2"
             component={TopAnimals}
-            options={{ title: "TopAnimals" }}
+            options={{ title: "TopAnimals", headerShown: false }}
         />
     </Stack.Navigator>
   )

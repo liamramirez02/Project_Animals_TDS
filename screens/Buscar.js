@@ -4,7 +4,7 @@ import React from 'react'
 export default function Buscar() {
   return (
     <View>
-      <Text>Buscar Animales</Text>
+      <Text></Text>
     </View>
   )
 }

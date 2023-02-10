@@ -4,7 +4,7 @@ import React from 'react'
 export default function TopAnimals() {
   return (
     <View>
-      <Text>TopAnimals</Text>
+      <Text></Text>
     </View>
   )
 }

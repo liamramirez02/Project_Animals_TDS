@@ -3,11 +3,11 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { color, Icon } from 'react-native-elements'
 
-import Account from '../cuentas/Account'
-import Buscar from '../screens/Buscar'
-import Favoritos from '../screens/Favoritos'
-import Mascotas from '../screens/Mascotas'
-import TopAnimals from '../screens/TopAnimals'
+import AccountStack from '../navegation/AccountStack'
+import BuscarStack from '../navegation/BuscarStack'
+import FavoritosStack from '../navegation/FavoritosStack'
+import MascotasStack from '../navegation/MascotasStack'
+import TopAnimalsStack from '../navegation/TopAnimalsStack'
 
 const Tab = createBottomTabNavigator()
 
@@ -62,27 +62,27 @@ export default function Navigation() {
         >
             <Tab.Screen
                 name="Cuenta"
-                component={Account}
+                component={AccountStack}
                 options={{title: "Cuenta" }} 
             />
             <Tab.Screen
                 name="Buscar"
-                component={Buscar}
+                component={BuscarStack}
                 options={{title: "Buscar" }} 
             />
             <Tab.Screen
                 name="Favoritos"
-                component={Favoritos} 
+                component={FavoritosStack} 
                 options={{title: "Favoritos" }}
             />
             <Tab.Screen
                 name="Mascotas"
-                component={Mascotas} 
+                component={MascotasStack} 
                 options={{title: "Mascotas" }}
             />
             <Tab.Screen
                 name="Ranking"
-                component={TopAnimals} 
+                component={TopAnimalsStack} 
                 options={{title: "Ranking" }}
             />
         </Tab.Navigator>

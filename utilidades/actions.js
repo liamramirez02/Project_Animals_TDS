@@ -1,4 +1,4 @@
-import { FbApp } from 'firebase/app'
+import { FbApp } from './firebase'
 import * as firebase from 'firebase'
 import 'firebase/firestore'
 
@@ -12,3 +12,5 @@ export const isUserLogged = () =>
     user !== null && (isLogged = true)
     })
 }
+
+return isLogged

@@ -48,7 +48,13 @@ export default function Navigation() {
             initialRouteName="Cuenta"
             tabBarOptions={{
                 inactiveTintColor:"#4d4d4d",
-                activeTintColor:"#040404"
+                activeTintColor:"#040404", 
+                "tabBarStyle": [
+                  {
+                    "display": "flex"
+                  },
+                  null
+                ]
             }}
             screenOptions={({route }) => ({
               tabBarIcon: ({color}) => screenOptions(route, color)

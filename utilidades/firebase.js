@@ -1,12 +1,21 @@
-import { initializeApp } from "firebase/app";
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAGUq52OmqrwdtjgkZly1zYZy9KKhDbL1Q",
-  authDomain: "petsafedb.firebaseapp.com",
-  projectId: "petsafedb",
-  storageBucket: "petsafedb.appspot.com",
-  messagingSenderId: "408402032183",
-  appId: "1:408402032183:web:2d44743b042465dec9b1b2"
+  apiKey: "AIzaSyB4xh6T-O4W9r9GD4iJN7GP12DImvl5IgA",
+  authDomain: "project-animal-tds.firebaseapp.com",
+  projectId: "project-animal-tds",
+  storageBucket: "project-animal-tds.appspot.com",
+  messagingSenderId: "744161593205",
+  appId: "1:744161593205:web:bdd3fa443c105c8df5b53c"
 };
 
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase
+
+// Initialize Firebase
+export const firebaseApp = firebase.initializeApp(firebaseConfig)
+

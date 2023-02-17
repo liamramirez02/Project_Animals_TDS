@@ -11,6 +11,8 @@ export const isUserLogged = () => {
     firebase.auth().onAuthStateChanged((user) => {
         user != null && (isLogged = true)
     })
+
+    return isLogged
 }
 
 export const getCurrentUser = () => {   //Devuelve el usuario que esta log en el sistema

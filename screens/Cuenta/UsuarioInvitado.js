@@ -2,8 +2,11 @@ import { StyleSheet, Text, View, Image, Button } from 'react-native'
 import React from 'react'
 import Loading from '../../Componentes/Loading'
 import { ScrollView } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
 
 export default function UsuarioInvitado() {
+  const navigation = useNavigation()
+
   return (
     <ScrollView
     centerContent
@@ -25,7 +28,7 @@ export default function UsuarioInvitado() {
           <Button
             buttonStyle={styles.boton}
             title="Ver Perfil"
-            onPress={() => console.log("Funciona")} 
+          //onPress={() => navigation.navigate("Login")} 
           />
     </ScrollView>
   )
@@ -33,6 +36,7 @@ export default function UsuarioInvitado() {
 
 //<Loading isVisible = {true} text="Cargando..."/>
 
+//Diseño del Apartado de Inicio
 const styles = StyleSheet.create({
   viewBody: {
     marginHorizontal: 30

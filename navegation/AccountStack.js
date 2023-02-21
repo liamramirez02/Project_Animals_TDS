@@ -3,8 +3,10 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import Account from '../screens/Cuenta/Account'
 import Login from '../screens/Cuenta/Login'
+import Registro from '../screens/Cuenta/Registro'
 
 const Stack = createStackNavigator()
+
 
 export default function AccountStack() {
   return (
@@ -18,6 +20,11 @@ export default function AccountStack() {
             name="login"
             component={Login}
             options={{ title: "Iniciar Sesion"}}
+        />
+            <Stack.Screen
+            name="registro"
+            component={Registro}
+            options={{ title: "Registro de Usuario"}}
         />
     </Stack.Navigator>
   )

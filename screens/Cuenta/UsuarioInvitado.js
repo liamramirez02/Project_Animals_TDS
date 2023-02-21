@@ -3,9 +3,10 @@ import React from 'react'
 import Loading from '../../Componentes/Loading'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
+import Login from './Login';
 
 export default function UsuarioInvitado() {
-  const navigation = useNavigation()
+  const navigation = useNavigation() //navegar a otra pantalla
 
   return (
     <ScrollView
@@ -28,7 +29,7 @@ export default function UsuarioInvitado() {
           <Button
             buttonStyle={styles.boton}
             title="Ver Perfil"
-          //onPress={() => navigation.navigate("Login")} 
+            onPress={() => navigation.navigate("login")} //navegacion hacia login
           />
     </ScrollView>
   )

@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View,Image } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import Registro_Form from './../../Componentes/Cuenta/Registro_Form';
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view" //nuevo scroll
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view' //nuevo scroll
 
 export default function Registro() {
   return (
@@ -18,9 +18,10 @@ export default function Registro() {
 
 const styles = StyleSheet.create({
     image: {
-        height: 150,
+        height: 115,
         width:"100%",
-        marginBottom: 40,
+        marginTop: 60,
+        marginBottom: 5,
         textAlign: "center"
       }
 })

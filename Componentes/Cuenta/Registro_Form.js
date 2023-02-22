@@ -3,6 +3,9 @@ import React, {useState} from 'react'
 import { Button, Input, Icon} from 'react-native-elements'
 import { validateEmail } from '../../utilidades/helpers'
 import {size} from 'lodash'
+import { useNavigation } from '@react-navigation/native'
+import {registerUser} from '../../utilidades/actions'
+import Account from '../../screens/Cuenta/Account'
 
 //Formulario de registro
 
@@ -13,17 +16,25 @@ export default function Registro_Form() {
     const [errorP, setErrorPassword] = useState("")
     const [errorC, setErrorConfirm] = useState("")
 
+    const navigation = useNavigation()
+
     const onChange = (e, type) => {
       setFData({...FData, [type]: e.nativeEvent.text })
       
     }
 
-    const registerUser = () =>{
+    const RU = async() =>{
        if(validateData()) {
         return;
        }
 
-       console.log("Funciona!!")
+       const R = await registerUser(FData.email, FData.password)
+       if(!R.statusResponse) {
+        setErrorEmail(R.error)
+        return
+       }
+
+       navigation.navigate(Account)
     }
 
     const validateData = () => {
@@ -112,7 +123,7 @@ export default function Registro_Form() {
       containerStyle={styles.btnContainer}
       title="Registrar usuario"
       buttonStyle={styles.btn}
-      onPress={() => registerUser()}
+      onPress={() => RU()}
       />
     </View>
   )

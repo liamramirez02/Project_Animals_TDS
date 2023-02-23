@@ -11,7 +11,7 @@ export default function MascotasStack() {
         <Stack.Screen
             name="mascotas"
             component={Mascotas}
-            options={{ title: "Mascotas"}}
+            options={{ title: "Mascotas", headerShown: false }}
         />
     </Stack.Navigator>
   )

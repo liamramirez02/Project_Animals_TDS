@@ -42,6 +42,8 @@ export default function Registro_Form() {
        navigation.navigate("C2") // si logro crear el usuario envia al usuario a la vista de cuenta
     }
 
+
+    //VALIDACIONES
     const validateData = () => {
       setErrorConfirm("")
       setErrorEmail("")
@@ -68,8 +70,8 @@ export default function Registro_Form() {
 
       if(FData.password !== FData.confirm)
       {
-        setErrorPassword("La contraseña y la confirmación no son compatibles")
-        setErrorConfirm("La contraseña y la confirmación no son compatibles")
+        setErrorPassword("Las contraseñas no son compatibles")
+        setErrorConfirm("Las contraseñas no son compatibles")
         isValid = false
       }
 

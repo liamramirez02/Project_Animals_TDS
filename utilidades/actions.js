@@ -20,7 +20,7 @@ export const getCurrentUser = () => {   //Devuelve el usuario que esta log en el
 }
 
 export const CloseSession = () => {   //Cierra la sesion usuario que esta log en el sistema
-    return firebase.auth().singOut()
+    return firebase.auth().signOut()
 }
 
 export const registerUser = async(email, password) => {

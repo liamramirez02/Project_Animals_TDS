@@ -6,6 +6,7 @@ import {size} from 'lodash'
 import { useNavigation } from '@react-navigation/native'
 import {registerUser} from '../../utilidades/actions'
 import Account from '../../screens/Cuenta/Account'
+import Loading from './../Loading';
 
 //Formulario de registro
 
@@ -15,6 +16,7 @@ export default function Registro_Form() {
     const [errorE, setErrorEmail] = useState("")
     const [errorP, setErrorPassword] = useState("")
     const [errorC, setErrorConfirm] = useState("")
+    const [loading, setloading] = useState(false)
 
     const navigation = useNavigation()
 
@@ -24,17 +26,20 @@ export default function Registro_Form() {
     }
 
     const RU = async() =>{
-       if(validateData()) {
+       if(!validateData()) {
         return;
        }
 
+       setloading(true)
        const R = await registerUser(FData.email, FData.password)
-       if(!R.statusResponse) {
+       setloading(false)
+
+       if(!R.statusResponse) { //si hubo problemas (statusResponse) envia el error
         setErrorEmail(R.error)
         return
        }
 
-       navigation.navigate(Account)
+       navigation.navigate("C2") // si logro crear el usuario envia al usuario a la vista de cuenta
     }
 
     const validateData = () => {
@@ -125,6 +130,7 @@ export default function Registro_Form() {
       buttonStyle={styles.btn}
       onPress={() => RU()}
       />
+      <Loading isVisible={loading} text="Creando Cuenta del Usuario"/>
     </View>
   )
 }

@@ -27,8 +27,20 @@ export const registerUser = async(email, password) => {
     const R = { statusResponse: true, error: null }
     try {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
+        R.statusResponse = false
     } catch (error) {
         R.error = "Este correo ya esta registrado."
+    }
+    return R
+}
+
+export const loginEmail = async(email, password) => {
+    const R = { statusResponse: true, error: null }
+    try {
+        await firebase.auth().signInWithEmailAndPassword(email, password)
+        R.statusResponse = false
+    } catch (error) {
+        R.error = "El usuario o Contraseña invalidos"
     }
     return R
 }

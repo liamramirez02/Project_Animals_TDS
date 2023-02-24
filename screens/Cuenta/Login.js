@@ -2,24 +2,25 @@ import { ScrollView, StyleSheet, Text, View,Image } from 'react-native'
 import React from 'react'
 import { Divider } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
+import Login_Form from '../../Componentes/Cuenta/Login_Form'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view' //nuevo scroll
+
 
 export default function Login() {
 
   return (
-    <ScrollView>
+    <KeyboardAwareScrollView>
           <Image
               source={require("../../assets/logo_v2.jpg")}
               resizeMode="contain"
               style={styles.image}
           />  
           <View style={styles.container}>
-            <Text>
-              Formulario Login
-            </Text>
+            <Login_Form/>
             <Crearcuenta/>
           </View>
           <Divider style={styles.divider}/>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   )
 }
 

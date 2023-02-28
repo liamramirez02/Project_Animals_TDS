@@ -34,12 +34,12 @@ export const registerUser = async(email, password) => {
     return R
 }
 
-export const loginWithEmailandPassword = async(email, password) => {
-    const R = { statusResponse: true, error: null }
+export const loginEmailandPass = async(email, password) => {
+    const R = { statusResponse: false, error: null }
     try {
         await firebase.auth().signInWithEmailAndPassword(email, password)
+        R.statusResponse = true
     } catch (error) {
-        R.statusResponse = false
         R.error = "El usuario o Contraseña no validos"
     }
     return R

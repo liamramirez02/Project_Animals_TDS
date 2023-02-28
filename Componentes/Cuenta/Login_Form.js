@@ -4,7 +4,7 @@ import { Button, Input, Icon} from 'react-native-elements'
 import Loading from './../Loading';
 import { useNavigation } from '@react-navigation/native'
 import { validateEmail } from '../../utilidades/helpers'
-import { loginEmail } from './../../utilidades/actions';
+import { loginEmailandPass } from './../../utilidades/actions';
 import {isEmpty} from 'lodash'
 
 export default function Login_Form() {
@@ -29,7 +29,7 @@ export default function Login_Form() {
       }
 
       setloading(true)
-      const R = await loginEmail(FData.email, FData.password)
+      const R = await loginEmailandPass(FData.email, FData.password)
       setloading(false)
 
       if(!R.statusResponse) { //si hubo problemas (statusResponse) envia el error

@@ -6,10 +6,6 @@ import { useNavigation } from '@react-navigation/native'
 import { validateEmail } from '../../utilidades/helpers'
 import { loginEmail } from './../../utilidades/actions';
 import {isEmpty} from 'lodash'
-import Account from '../../screens/Cuenta/Account'
-
-
-
 
 export default function Login_Form() {
 

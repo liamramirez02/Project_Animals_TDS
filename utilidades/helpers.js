@@ -25,11 +25,18 @@ export const cargarimagegallery = async (array) => {
       aspect: array
     })
   
-    if (resultado.cancelled) { // si el usuario cancela la operacion 
+    if (resultado.canceled) { // si el usuario cancela la operacion 
       return response
     }
   
     response.status = true
     response.image = resultado.uri 
     return response  
+}
+
+//metodo para convertir la imagen en binario
+export const fileToBlob = async(path) => {
+  const file = await fetch(path)
+  const blob = await file.blob()
+  return blob
 }

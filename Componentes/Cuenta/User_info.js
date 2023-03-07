@@ -1,16 +1,37 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Alert, StyleSheet, Text, View } from 'react-native'
+import React, {useState}from 'react'
 import { Avatar } from 'react-native-elements'
 import { cargarimagegallery } from '../../utilidades/helpers'
+import { subirImagen } from '../../utilidades/actions'
+import { actualizarPerfil } from './../../utilidades/actions';
 
-export default function user_info({user}) { //recibe el usuario
+export default function user_info({user,setLoading, setLoadingtext}) { //recibe el usuario
+
+    const [photoURL, setphotoURL] = useState(user.photoURL)
 
     const cambiarimagen = async () => {
         const result = await cargarimagegallery([1, 1])
-        console.log(result)
-        // if (!result.status) {
-        //     return
+        if (!result.status) {
+            return 
         }
+        setLoadingtext("Actualizando Imagen...")
+        setLoading(true)
+        const resultado_subirImagen = await subirImagen(result.image,"Perfiles", user.uid)
+        
+        if (!resultado_subirImagen.statusResponse){
+            setLoading(false)
+            Alert.alert("Ha ocurrido un error en la subida de la Imagen")
+            return 
+        }
+
+        const resultado_actualizarImagen = await actualizarPerfil({ photoURL: resultado_subirImagen.url})
+        setLoading(false)
+        if(resultado_actualizarImagen.statusResponse){
+            setphotoURL(resultado_subirImagen.url)
+        }else{
+            Alert.alert("Ha ocurrido un error en la actualizacion de la Imagen")
+        }
+    }
 
         return (
     <View style={styles.viewUserInfo}>
@@ -20,7 +41,7 @@ export default function user_info({user}) { //recibe el usuario
     //    containerStyle={styles.userAvatar}
        onPress={cambiarimagen}
        source={
-           user.photoURL 
+           photoURL 
            ? { uri: photoURL }               //si el user tiene foto usara la url que el usuario le indique
            : require("../../assets/logo_v2.jpg") // de lo contrario mostrara una imagen por default
        }

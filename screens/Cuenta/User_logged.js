@@ -22,10 +22,14 @@ export default function User_logged() {
 
   return (
     <View styles={styles.comtainer}>
-  {      
-  user && <User_info user={user}/> //si hay usuario logueado manda la informacion
-  }     
-   <Text>opciones de cuenta</Text>
+    {                                       
+      user &&(                              //si hay usuario logueado manda la informacion
+        <View>
+         <User_info user={user} setLoading={setLoading} setLoadingtext={setLoadingtext}/>
+         <Text>opciones de cuenta</Text>
+         </View>
+         )
+        }     
       <Button
         title="Cerrar Sesion"
         buttonStyle={styles.btncerrar}

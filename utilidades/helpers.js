@@ -1,6 +1,7 @@
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
 import { Alert } from 'react-native'
+import { Camera } from 'expo-camera';
 
 
 export function validateEmail(email){ //Validacion de Caracteres
@@ -13,16 +14,18 @@ export function validateEmail(email){ //Validacion de Caracteres
 
 export const cargarimagegallery = async (array) => {
     const response = { status: false, image: null }
-    const rpermisos = await Permissions.askAsync(Permissions.CAMERA) //permiso para acceso a la camara
+    const { status } = await Camera.requestCameraPermissionsAsync() //permiso para acceso a la camara
     
-    if (rpermisos.status === "denied") { //si el usuario deniega el permiso
-      Alert.alert("Dar permiso para acceder a la imagenes")
+    if (status !== "granted") { //si el usuario deniega el permiso
+      Alert.alert("Para cargar una imagen desde la galería, es necesario otorgar permiso para acceder a las imágenes. Por favor, otorgue permiso en la configuración de su dispositivo")
       return response
     }
   
     const resultado = await ImagePicker.launchImageLibraryAsync({  //si el usuario aprueba los permisos, toma las imagenes de la galeria
       allowsEditing: true,
-      aspect: array
+      aspect: array,
+      quality: 1,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
     })
   
     if (resultado.canceled) { // si el usuario cancela la operacion 
@@ -30,7 +33,7 @@ export const cargarimagegallery = async (array) => {
     }
   
     response.status = true
-    response.image = resultado.uri 
+    response.image = resultado.assets[0].uri  
     return response  
 }
 

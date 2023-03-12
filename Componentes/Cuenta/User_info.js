@@ -7,6 +7,7 @@ import { actualizarPerfil } from './../../utilidades/actions';
 
 export default function user_info({user,setLoading, setLoadingtext}) { //recibe el usuario
 
+    
     const [photoURL, setphotoURL] = useState(user.photoURL)
 
     const cambiarimagen = async () => {
@@ -26,11 +27,8 @@ export default function user_info({user,setLoading, setLoadingtext}) { //recibe 
 
         const resultado_actualizarImagen = await actualizarPerfil({ photoURL: resultado_subirImagen.url})
         setLoading(false)
-        if(resultado_actualizarImagen.statusResponse){
-            setphotoURL(resultado_subirImagen.url)
-        }else{
-            Alert.alert("Ha ocurrido un error en la actualizacion de la Imagen")
-        }
+        setphotoURL(resultado_subirImagen.url)
+
     }
 
         return (

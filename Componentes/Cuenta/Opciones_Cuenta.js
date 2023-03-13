@@ -2,10 +2,75 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { ListItem, Icon } from 'react-native-elements'
 import {map} from 'lodash'
+import { useState } from 'react'
+import Modal from '../Modal'
+import Cambiar_nombre_form from './Cambiar_nombre_form';
 
-export default function Opciones_Cuenta({user, toastRef}) {
+export default function Opciones_Cuenta(user, toastRef, setReloadUser ) {
+
+
+    const [showModal, setShowModal] = useState(false)
+    const [renderComponent, setRenderComponent] = useState(null) //para mandar al mondal
 
     const opciones_menu = generateOptions()
+
+    const selectedComponent = (key) => { //elegir opciones
+        switch (key) {
+            case "displayName":
+                setRenderComponent(
+                    <Cambiar_nombre_form
+                        displayName={user.displayName}
+                        setShowModal={setShowModal}
+                        toastRef={toastRef}
+                        // setReloadUser={setReloadUser}
+                    />
+                )
+                break;
+        
+            case "editar_email":
+                setRenderComponent(
+                   
+                )
+                break;
+    
+            case "editar_password":
+                setRenderComponent(
+                )
+                break;
+    
+        }
+    
+        setShowModal(true)
+    }
+
+    function generateOptions () {
+        return [
+            {
+                title: "Cambio de Nombre y Apellidos",
+                iconNameLeft: "account-circle",
+                iconColorLeft: "#a7bfd3",
+                iconNameRight: "chevron-right",
+                iconColorRight: "#a7bfd3",
+                onPress: () => selectedComponent("displayName")
+            },
+            {
+                title: "Cambio de Email",
+                iconNameLeft: "at",
+                iconColorLeft: "#a7bfd3",
+                iconNameRight: "chevron-right",
+                iconColorRight: "#a7bfd3",
+                onPress: () => selectedComponent("editar_email")
+            },
+            {
+                title: "Cambio de Contraseña",
+                iconNameLeft: "lock-reset",
+                iconColorLeft: "#a7bfd3",
+                iconNameRight: "chevron-right",
+                iconColorRight: "#a7bfd3",
+                onPress: () => selectedComponent("editar_password")
+            }
+        ]
+    }
 
     return (
         <View>
@@ -14,6 +79,7 @@ export default function Opciones_Cuenta({user, toastRef}) {
                     <ListItem 
                         key={index} //no se repite
                         style={styles.menuItem} 
+                        onPress={menu.onPress}
                     >
                         <Icon
                             type="material-community"
@@ -31,39 +97,17 @@ export default function Opciones_Cuenta({user, toastRef}) {
                     </ListItem>
                 ))
             }
-
+            {
+                renderComponent && (
+                    <Modal isVisible={showModal} setVisible={setShowModal}>
+                        {renderComponent}
+                    </Modal>
+                )
+            }
         </View>
     )
 }
 
-function generateOptions () {
-    return [
-        {
-            title: "Cambio de Nombre y Apellidos",
-            iconNameLeft: "account-circle",
-            iconColorLeft: "#a7bfd3",
-            iconNameRight: "chevron-right",
-            iconColorRight: "#a7bfd3",
-            onPress: () => selectedComponent("displayName")
-        },
-        {
-            title: "Cambio de Email",
-            iconNameLeft: "at",
-            iconColorLeft: "#a7bfd3",
-            iconNameRight: "chevron-right",
-            iconColorRight: "#a7bfd3",
-            onPress: () => selectedComponent("email")
-        },
-        {
-            title: "Cambio de Contraseña",
-            iconNameLeft: "lock-reset",
-            iconColorLeft: "#a7bfd3",
-            iconNameRight: "chevron-right",
-            iconColorRight: "#a7bfd3",
-            onPress: () => selectedComponent("password")
-        }
-    ]
-}
 
 const styles = StyleSheet.create({
     menuItem: {

@@ -6,6 +6,7 @@ import { useState } from 'react'
 import Modal from '../Modal'
 import Cambiar_nombre_form from './Cambiar_nombre_form';
 import Cambiar_email_form from './Cambiar_email_form';
+import Cambiar_contra_form from './Cambiar_contra_form';
 
 export default function Opciones_Cuenta({user, toastRef, setReloadUser}) {
 
@@ -63,6 +64,16 @@ export default function Opciones_Cuenta({user, toastRef, setReloadUser}) {
                             setShowModal={setShowModal}
                             toastRef={toastRef}
                             setReloadUser={setReloadUser}
+                        />
+                    )
+                    break;
+
+                    
+                case "editar_password":
+                    setRenderComponent(
+                        <Cambiar_contra_form
+                            setShowModal={setShowModal}
+                            toastRef={toastRef}
                         />
                     )
                     break;

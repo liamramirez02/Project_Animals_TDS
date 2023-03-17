@@ -16,20 +16,24 @@ export default function User_logged() {
   const [loading, setLoading] = useState(false)
   const [loadingText, setLoadingtext]= useState("")
   const [user, setUser]= useState(null)
+  const [reloadUser, setReloadUser] = useState(false)
 
-  useEffect(() =>{
+  useEffect(() => {
   setUser(getCurrentUser())
-  },[])
+  setReloadUser(false)
+
+  },[reloadUser])
 
   return (
-    <View styles={styles.comtainer}>
+    <View styles={styles.container}>
     {                                       
-      user &&(                              //si hay usuario logueado manda la informacion
+      user && (                              //si hay usuario logueado manda la informacion
         <View>
          <User_info user={user} setLoading={setLoading} setLoadingtext={setLoadingtext}/>
          <Opciones_Cuenta
           user={user}
-          ref={toastRef}
+          toastRef={toastRef}
+          setReloadUser={setReloadUser}
           />
          </View>
          )

@@ -45,9 +45,9 @@ export default function user_info({user,setLoading, setLoadingtext}) { //recibe 
        }
       />
       <View style={styles.user_info}>
-        <Text style={styles.display_name}>
-            {
-                user.diplayName ? user.displayName : "Anonimo"    // si el usuario tiene nombre devuelve el nombre de lo contrario devuelve "Anonimo"
+        <Text style={styles.displayName}>
+            { 
+                user.displayName ? user.displayName : "Anonimo"    // si el usuario tiene nombre devuelve el nombre de lo contrario devuelve "Anonimo"
             }
         </Text>
         <Text>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     user_info: {
         marginLeft: 20
     },
-    display_name: {
+    displayName: {
         fontWeight: "bold",
         paddingBottom: 5
     }

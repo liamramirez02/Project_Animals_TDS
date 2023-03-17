@@ -10,7 +10,7 @@ const db = firebase.firestore(firebaseApp)  //acceso a base de datos
 export const isUserLogged = () => {
     let isLogged = false
     firebase.auth().onAuthStateChanged((user) => {
-        user != null && (isLogged = true)
+        user !== null && (isLogged = true)
     })
 
     return isLogged
@@ -68,6 +68,37 @@ export const actualizarPerfil = async (data) => {
  
     try {
         await firebase.auth().currentUser.actualizarPerfil(data)
+    } catch (error) {
+        result.statusResponse = false    
+        result.error = error    
+    }
+
+    return result
+}
+
+export const reauthenticate = async(password) => {
+    const result = { statusResponse: false, error: null }
+    const user = getCurrentUser()    
+    const credentials = firebase.auth.EmailAuthProvider.credential(
+        user.email,
+        password
+    )
+
+    try {
+        await user.reauthenticateWithCredential(credentials)
+        result.statusResponse = true
+    } catch (error) {
+        result.error = error
+    }
+
+    return result
+}
+
+export const updateEmail = async (email) => {
+    const result = { statusResponse: false, error: null }
+ 
+    try {
+        await firebase.auth().currentUser.updateEmail(email)
         result.statusResponse = true    
     } catch (error) {
         result.error = error    

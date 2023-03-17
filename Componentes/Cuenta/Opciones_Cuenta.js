@@ -1,49 +1,20 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { ListItem, Icon } from 'react-native-elements'
-import {map} from 'lodash'
+import { map } from 'lodash'
 import { useState } from 'react'
 import Modal from '../Modal'
 import Cambiar_nombre_form from './Cambiar_nombre_form';
+import Cambiar_email_form from './Cambiar_email_form';
 
-export default function Opciones_Cuenta(user, toastRef, setReloadUser ) {
+export default function Opciones_Cuenta({user, toastRef, setReloadUser}) {
 
 
     const [showModal, setShowModal] = useState(false)
-    const [renderComponent, setRenderComponent] = useState(null) //para mandar al mondal
+    const [renderComponent, setRenderComponent] = useState(null) //para mandar al modal
 
-    const opciones_menu = generateOptions()
 
-    const selectedComponent = (key) => { //elegir opciones
-        switch (key) {
-            case "displayName":
-                setRenderComponent(
-                    <Cambiar_nombre_form
-                        displayName={user.displayName}
-                        setShowModal={setShowModal}
-                        toastRef={toastRef}
-                        // setReloadUser={setReloadUser}
-                    />
-                )
-                break;
-        
-            case "editar_email":
-                setRenderComponent(
-                   
-                )
-                break;
-    
-            case "editar_password":
-                setRenderComponent(
-                )
-                break;
-    
-        }
-    
-        setShowModal(true)
-    }
-
-    function generateOptions () {
+    const generateOptions = () => {
         return [
             {
                 title: "Cambio de Nombre y Apellidos",
@@ -72,6 +43,42 @@ export default function Opciones_Cuenta(user, toastRef, setReloadUser ) {
         ]
     }
 
+    const selectedComponent = (key) => { //elegir opciones
+        switch (key) {
+            case "displayName":
+                setRenderComponent(
+                    <Cambiar_nombre_form
+                        displayName={user.displayName}
+                        setShowModal={setShowModal}
+                        toastRef={toastRef}
+                        setReloadUser={setReloadUser}
+                    />
+                )
+                break;
+
+                case "editar_email":
+                    setRenderComponent(
+                        <Cambiar_email_form
+                            email={user.email}
+                            setShowModal={setShowModal}
+                            toastRef={toastRef}
+                            setReloadUser={setReloadUser}
+                        />
+                    )
+                    break;
+
+                default:
+                    setRenderComponent(null)
+                    break;
+            
+        }
+    
+        setShowModal(true)
+    }
+
+    
+    const opciones_menu = generateOptions()
+
     return (
         <View>
             {
@@ -98,12 +105,13 @@ export default function Opciones_Cuenta(user, toastRef, setReloadUser ) {
                 ))
             }
             {
-                renderComponent && (
-                    <Modal isVisible={showModal} setVisible={setShowModal}>
+                    renderComponent && (
+
+                    <Modal isVisible={showModal} setVisible={setShowModal} >
                         {renderComponent}
-                    </Modal>
-                )
-            }
+                    </Modal>      
+               )
+                    }
         </View>
     )
 }

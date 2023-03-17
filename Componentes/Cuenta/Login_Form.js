@@ -17,10 +17,6 @@ export default function Login_Form() {
 
     const navigation = useNavigation()
 
-    const onChange = (e, type) => {
-      setFData({...FData, [type]: e.nativeEvent.text })
-      
-    }
 
     const dLogin = async() =>{
 
@@ -61,6 +57,11 @@ const validateData = () => {
   }
 
   return isValid
+}
+
+const onChange = (e, type) => {
+  setFData({...FData, [type]: e.nativeEvent.text })
+  
 }
 
   return (

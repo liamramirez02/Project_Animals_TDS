@@ -4,7 +4,7 @@ import { Overlay } from 'react-native-elements'
 
 //Overlay
 
-export default function Modal(isVisible, setVisible, children) {
+export default function Modal({isVisible, setVisible, children}) {
 
     // const closeModal = () => setIsVisible(false)
 

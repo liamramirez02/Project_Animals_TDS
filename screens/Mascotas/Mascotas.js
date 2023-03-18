@@ -53,12 +53,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   btnContainer:{
-    position: "absolute",
-    bottom: 10,
-    rigth: 10,
-    shadowColor: "black",
+    position: 'absolute',
+    bottom: 5,
+    right: 0,
+    shadowColor: 'black',
     shadowOffset: {width: 2, height: 2 },
-    shadowOpacity: 0.5
+    shadowOpacity: 0.5    
 
   }
 })

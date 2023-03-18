@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, {useRef, useState} from 'react'
-import { Toast } from 'react-native-easy-toast';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Loading from '../../Componentes/Loading';
-import Add_mascotas_form from './../../Componentes/Mascotas/Add_mascotas_form';
+import Toast  from 'react-native-easy-toast'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import Loading from '../../Componentes/Loading'
+import Add_mascotas_form from './../../Componentes/Mascotas/Add_mascotas_form'
 
 export default function Add_mascotas({navigation}) {
 
@@ -12,14 +12,11 @@ export default function Add_mascotas({navigation}) {
 
     return (
     <KeyboardAwareScrollView>
-      <Add_mascotas_form toastRef={toastRef} setLoading={setLoading}
-      />
+      <Add_mascotas_form toastRef={toastRef} setLoading={setLoading} navigation={navigation}/>
       
-      <Loading isVisible={loading} text="Agregando Mascota"
-     />
+      <Loading isVisible={loading} text="Agregando Mascota"/>
      
-     <Toast ref={toastRef} position="center" opacity={0.9}
-     />
+     <Toast ref={toastRef} position="center" opacity={0.9}/>
 
     </KeyboardAwareScrollView>
   )

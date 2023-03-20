@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, ScrollView} from 'react-native'
 import React, {useState} from 'react'
-import { Button, Input, Icon, color } from 'react-native-elements';
+import { Button, Input, Icon, color, Avatar } from 'react-native-elements';
 import CountryPicker from 'react-native-country-picker-modal'
+import { map, size, filter, isEmpty } from 'lodash'
 
 
 export default function Add_mascotas_form({toastref, setloading, navigation}) {
@@ -13,7 +14,8 @@ export default function Add_mascotas_form({toastref, setloading, navigation}) {
   const [errorEmail, setErrorEmail] = useState(null)
   const [errorDireccion, seterrorDireccion] = useState(null)
   const [errorPhone, seterrorPhone] = useState(null)
-  
+  const [seleccionImagenes, setSeleccionImagenes] = useState([]);
+
   const add_mascotas = () =>{
     console.log(FData)
     console.log("esta to jevi")
@@ -32,7 +34,10 @@ export default function Add_mascotas_form({toastref, setloading, navigation}) {
         errorPhone={errorPhone}
         errorEmail={errorEmail}
       />
-      <UploadImage/>
+      <UploadImage
+        toastref={toastref}
+        SeleccionImagenes={seleccionImagenes}
+        setSeleccionImagenes={setSeleccionImagenes}/>
       <Button
         title={"Salvar Mascota"}
         onPress={add_mascotas}
@@ -43,7 +48,7 @@ export default function Add_mascotas_form({toastref, setloading, navigation}) {
 }
 
 
-function UploadImage(){
+function UploadImage({toastref,seleccionImagenes,setSeleccionImagenes}){
 
   return (
     <ScrollView 
@@ -52,13 +57,29 @@ function UploadImage(){
 
     >
 
-      <Icon
-        type='material-community'
-        name='camera'
-        color='#7a7a7a'
-        containerStyle={styles.containerIcon}
+      {
+        size(seleccionImagenes) < 10 && ( //muestra el icnoco de imagenes si son menores que 10
+         
+          <Icon
+          type='material-community'
+          name='camera'
+          color='#7a7a7a'
+          containerStyle={styles.containerIcon}
         />
 
+        )
+        }
+      
+      {
+      map(seleccionImagenes, (imagenesmascotas, index) => (
+          <Avatar
+            key={index}
+            style={styles.miniaturaStyle}
+            source={{ uri: imagenesmascotas }}
+            // onPress={() => removeImage(imagenesmascotas)}
+          />
+         ))
+        }
     </ScrollView>
   )
 }
@@ -181,5 +202,10 @@ containerIcon: {
   height: 80,
   width: 80,
   backgroundColor: "#e3e3e3",
+},
+miniaturaStyle: {
+  width: 70,
+  height: 70,
+  marginRight: 10,
 },
 })

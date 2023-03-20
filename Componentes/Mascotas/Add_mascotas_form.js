@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ScrollView} from 'react-native'
 import React, {useState} from 'react'
-import { Button, Input } from 'react-native-elements';
+import { Button, Input, Icon, color } from 'react-native-elements';
 import CountryPicker from 'react-native-country-picker-modal'
+
 
 export default function Add_mascotas_form({toastref, setloading, navigation}) {
   
@@ -31,6 +32,7 @@ export default function Add_mascotas_form({toastref, setloading, navigation}) {
         errorPhone={errorPhone}
         errorEmail={errorEmail}
       />
+      <UploadImage/>
       <Button
         title={"Salvar Mascota"}
         onPress={add_mascotas}
@@ -41,7 +43,25 @@ export default function Add_mascotas_form({toastref, setloading, navigation}) {
 }
 
 
+function UploadImage(){
 
+  return (
+    <ScrollView 
+      horizontal
+      style = {styles.imagenes}
+
+    >
+
+      <Icon
+        type='material-community'
+        name='camera'
+        color='#7a7a7a'
+        containerStyle={styles.containerIcon}
+        />
+
+    </ScrollView>
+  )
+}
 
 function Form_add({FData,setFData,errorName,errorDescription,errorDireccion,errorPhone,errorEmail}){
   const [country, setCountry] = useState("DO")
@@ -84,7 +104,7 @@ function Form_add({FData,setFData,errorName,errorDescription,errorDireccion,erro
           containerStyle={styles.countryPicker}
           countryCode={country}
           onSelect={(country) => {
-          setFData =({...FData, "country":country.cca2, "callingCode": country.callingCode[0]}) //-------------ACA HAY ERROR-------------
+          setFData = ({...FData, "country":country.cca2, "callingCode": country.callingCode[0]}) //-------------ACA HAY ERROR-------------
             // setCountry(country.cca2) //cca2: es el codigo internacional del pais de dos caracteres
             // setCallingcode(country.callingCode[0]) //arreglo de los codigos internacionales
           }}
@@ -145,7 +165,21 @@ inputWhatsApp:{
 
 },
 btnmascotas: {
-   margin: 20,
+   margin: 50,
    backgroundColor: "#442484"
+},
+imagenes: {
+  flexDirection: "row",
+  marginHorizontal: 20,
+  marginTop: 30,
+  height: 150,
+},
+containerIcon: {
+  alignItems: "center",
+  justifyContent: "center",
+  marginRight: 10,
+  height: 80,
+  width: 80,
+  backgroundColor: "#e3e3e3",
 },
 })

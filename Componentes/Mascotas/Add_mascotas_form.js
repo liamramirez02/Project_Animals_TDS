@@ -5,13 +5,32 @@ import CountryPicker from 'react-native-country-picker-modal'
 
 export default function Add_mascotas_form({toastref, setloading, navigation}) {
   
+
+  const [FData, setFData] = useState(defaultFormValues())
+  const [errorName, sEterrorName] = useState(null)
+  const [errorDescription, setErrorDescription] = useState(null)
+  const [errorEmail, setErrorEmail] = useState(null)
+  const [errorDireccion, seterrorDireccion] = useState(null)
+  const [errorPhone, seterrorPhone] = useState(null)
+  
   const add_mascotas = () =>{
+    console.log(FData)
     console.log("esta to jevi")
   }
   
+ 
+  
   return (
     <View style={styles.container_view}>
-      <Form_add/>
+      <Form_add                                   //pasando estados al form
+        FData={FData}
+        setFData={setFData}
+        errorName={errorName}
+        errorDescription={errorDescription}
+        errorDireccion={errorDireccion}
+        errorPhone={errorPhone}
+        errorEmail={errorEmail}
+      />
       <Button
         title={"Salvar Mascota"}
         onPress={add_mascotas}
@@ -22,22 +41,38 @@ export default function Add_mascotas_form({toastref, setloading, navigation}) {
 }
 
 
-function Form_add(){
+
+
+function Form_add({FData,setFData,errorName,errorDescription,errorDireccion,errorPhone,errorEmail}){
   const [country, setCountry] = useState("DO")
-  const [callingCode, setCallingcode] = useState("57")
+  const [callingCode, setCallingcode] = useState("1")
   const [phone, setphone] = useState("")
 
+  const onChange = (e, type) => {
+    setFData({...FData, [type]: e.nativeEvent.text })
+    
+  }
+  
   return(
     <View style={styles.form_view}>
       <Input
         placeholder="Nombre del Animal"
+        defaultValue={FData.name}
+        onChange={(e) => onChange(e, "name")} 
+        errorMessage={errorName}
       />
        <Input
         placeholder="Direccion en donde se encuentra la mascota"
+        defaultValue={FData.address}
+        onChange={(e) => onChange(e, "address")}
+        errorMessage={errorDireccion}
       />
        <Input
         placeholder="Email del Contacto"
         keyboardType="email-address"
+        defaultValue={FData.email}
+        onChange={(e) => onChange(e, "email")}
+        errorMessage={errorEmail}
       />
       <View style={styles.view_phone}>
 
@@ -49,8 +84,9 @@ function Form_add(){
           containerStyle={styles.countryPicker}
           countryCode={country}
           onSelect={(country) => {
-            setCountry(country.cca2) //cca2: es el codigo internacional del pais de dos caracteres
-            setCallingcode(country.callingCode[0]) //arreglo de los codigos internacionales
+          setFData =({...FData, "country":country.cca2, "callingCode": country.callingCode[0]}) //-------------ACA HAY ERROR-------------
+            // setCountry(country.cca2) //cca2: es el codigo internacional del pais de dos caracteres
+            // setCallingcode(country.callingCode[0]) //arreglo de los codigos internacionales
           }}
         />
 
@@ -58,17 +94,35 @@ function Form_add(){
         placeholder="WhatsApp del Contacto"
         keyboardType="phone-pad"
         containerStyle={styles.inputWhatsApp}
+        defaultValue={FData.phone}
+        onChange={(e) => onChange(e, "phone")}
+        errorMessage={errorPhone}
       />
       </View>
       <Input
         placeholder="Descripcion de la Situacion"
         multiline
         containerStyle={styles.textarea}
+        defaultValue={FData.description}
+        onChange={(e) => onChange(e, "description")}
+        errorMessage={errorDescription}
       />
     </View>
   )
 
 
+}
+
+const defaultFormValues = () => { //devolvera los valores por defecto del formulario
+  return { 
+      name: "", 
+      description: "", 
+      email:"",
+      phone: "", 
+      address: "", 
+      country: "DO",
+      callingCode: "1" 
+  }
 }
 
 const styles = StyleSheet.create({

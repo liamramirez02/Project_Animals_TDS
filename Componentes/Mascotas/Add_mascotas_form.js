@@ -3,9 +3,13 @@ import React, {useState} from 'react'
 import { Button, Input, Icon, color, Avatar } from 'react-native-elements';
 import CountryPicker from 'react-native-country-picker-modal'
 import { map, size, filter, isEmpty } from 'lodash'
+import { cargarimagegallery,loadImageFromCamera } from '../../utilidades/helpers';
+import { openGalleryAndSaveImage, Cameras } from './../../utilidades/helpers';
+
+import Modal from '../Modal'
 
 
-export default function Add_mascotas_form({toastref, setloading, navigation}) {
+export default function Add_mascotas_form({toastRef, setloading, navigation}) {
   
 
   const [FData, setFData] = useState(defaultFormValues())
@@ -15,6 +19,10 @@ export default function Add_mascotas_form({toastref, setloading, navigation}) {
   const [errorDireccion, seterrorDireccion] = useState(null)
   const [errorPhone, seterrorPhone] = useState(null)
   const [seleccionImagenes, setSeleccionImagenes] = useState([]);
+
+//localizacion
+  const [isVisibleMap, setIsVisibleMap] = useState(false);
+  const [locationMascota, setLocationMascota] = useState(null);
 
   const add_mascotas = () =>{
     console.log(FData)
@@ -33,9 +41,10 @@ export default function Add_mascotas_form({toastref, setloading, navigation}) {
         errorDireccion={errorDireccion}
         errorPhone={errorPhone}
         errorEmail={errorEmail}
+        setIsVisibleMap={setIsVisibleMap}
       />
       <UploadImage
-        toastref={toastref}
+        toastRef={toastRef}
         SeleccionImagenes={seleccionImagenes}
         setSeleccionImagenes={setSeleccionImagenes}/>
       <Button
@@ -43,12 +52,47 @@ export default function Add_mascotas_form({toastref, setloading, navigation}) {
         onPress={add_mascotas}
         buttonStyle={styles.btnmascotas}
       />
+      <Map_Mascostas isVisibleMap={isVisibleMap} 
+      setIsVisibleMap={setIsVisibleMap} 
+      setLocationMascota={setLocationMascota}
+      toastRef={toastRef}/>
     </View>
   )
 }
+ 
+function Map_Mascostas({isVisibleMap,setIsVisibleMap,setLocationMascota,toastRef}) {
+  
+  
+  return (
+    <Modal isVisible={isVisibleMap} setIsVisible={isVisibleMap}>
+        
+        <Text>este es el mapa</Text>
+       
+    </Modal>
+)
+}
 
 
-function UploadImage({toastref,seleccionImagenes,setSeleccionImagenes}){
+function UploadImage({toastRef,seleccionImagenes,setSeleccionImagenes}){
+
+  const seleccionImagen = async() =>{
+      const response = await loadImageFromCamera([4,3])
+      if(!response.status){
+        toastRef.current.show("No se selecciono ninguna imagen",3000)
+        return
+      }
+
+      setSeleccionImagenes([...seleccionImagenes,response.image])
+  }
+
+  // const imageSelect = async () => {
+  //   const response = await loadImageFromGallery([4, 3])
+  //   if (!response.status) {
+  //       toastRef.current.show("No has seleccionado ninguna imagen.", 3000)
+  //       return
+  //   }
+  //   setSeleccionImagenes([...seleccionImagenes, response.image]);
+// }
 
   return (
     <ScrollView 
@@ -58,13 +102,14 @@ function UploadImage({toastref,seleccionImagenes,setSeleccionImagenes}){
     >
 
       {
-        size(seleccionImagenes) < 10 && ( //muestra el icnoco de imagenes si son menores que 10
+        size(seleccionImagenes) < 10 && ( //solo muestra 10 imagenes, si sobrepasa desaparece el icon
          
           <Icon
           type='material-community'
           name='camera'
           color='#7a7a7a'
           containerStyle={styles.containerIcon}
+          onPress={seleccionImagen}
         />
 
         )
@@ -84,7 +129,7 @@ function UploadImage({toastref,seleccionImagenes,setSeleccionImagenes}){
   )
 }
 
-function Form_add({FData,setFData,errorName,errorDescription,errorDireccion,errorPhone,errorEmail}){
+function Form_add({FData,setFData,errorName,errorDescription,errorDireccion,errorPhone,errorEmail,locationMascota,setIsVisibleMap}){
   const [country, setCountry] = useState("DO")
   const [callingCode, setCallingcode] = useState("1")
   const [phone, setphone] = useState("")
@@ -107,6 +152,12 @@ function Form_add({FData,setFData,errorName,errorDescription,errorDireccion,erro
         defaultValue={FData.address}
         onChange={(e) => onChange(e, "address")}
         errorMessage={errorDireccion}
+        rightIcon={{
+          type: "material-community",
+          name: "google-maps",
+          color: locationMascota ? "#442484" : "#c2c2c2",
+          onPress: () => setIsVisibleMap(true),
+        }}
       />
        <Input
         placeholder="Email del Contacto"
@@ -165,6 +216,7 @@ const defaultFormValues = () => { //devolvera los valores por defecto del formul
       callingCode: "1" 
   }
 }
+
 
 const styles = StyleSheet.create({
   container_view: {

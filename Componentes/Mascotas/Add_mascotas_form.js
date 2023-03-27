@@ -243,7 +243,7 @@ btnmascotas: {
 },
 imagenes: {
   flexDirection: "row",
-  marginHorizontal: 20,
+  marginHorizontal: 25,
   marginTop: 30,
   height: 150,
 },

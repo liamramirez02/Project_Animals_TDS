@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView} from 'react-native'
+import { StyleSheet, Text, View, ScrollView,Alert} from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { Button, Input, Icon, color, Avatar } from 'react-native-elements';
 import CountryPicker from 'react-native-country-picker-modal'
@@ -44,6 +44,7 @@ export default function Add_mascotas_form({toastRef, setloading, navigation}) {
         errorPhone={errorPhone}
         errorEmail={errorEmail}
         setIsVisibleMap={setIsVisibleMap}
+        locationMascota={locationMascota}
       />
       <UploadImage
         toastRef={toastRef}
@@ -85,6 +86,30 @@ function UploadImage({toastRef,seleccionImagenes,setSeleccionImagenes}){
   //   setSeleccionImagenes([...seleccionImagenes, response.image]);
 // }
 
+const removeImage = (image) => {
+  Alert.alert(
+      "Eliminar Imagen",
+      "¿Estas seguro de eliminar esta imagen?",
+      [
+          {
+              text: "No",
+              style: "Cancelar",
+          },
+          {
+              text: "Sí",
+              onPress: () => {
+                setSeleccionImagenes(
+                      filter(seleccionImagenes, (imageUrl) => imageUrl !== image)
+                  )
+              },
+          },
+      ],
+      { 
+        cancelable: false 
+      }
+  )
+}
+
   return (
     <ScrollView 
       horizontal
@@ -112,7 +137,7 @@ function UploadImage({toastRef,seleccionImagenes,setSeleccionImagenes}){
             key={index}
             style={styles.miniaturaStyle}
             source={{ uri: imagenesmascotas }}
-            // onPress={() => removeImage(imagenesmascotas)}
+            onPress={() => removeImage(imagenesmascotas)} //llamando a la funcion eliminar imagen
           />
          ))
         }
@@ -120,7 +145,16 @@ function UploadImage({toastRef,seleccionImagenes,setSeleccionImagenes}){
   )
 }
 
-function Form_add({FData,setFData,errorName,errorDescription,errorDireccion,errorPhone,errorEmail,locationMascota,setIsVisibleMap}){
+function Form_add({
+  FData, 
+  setFData,
+  errorName,
+  errorDescription,
+  errorDireccion,
+  errorPhone,
+  errorEmail,
+  locationMascota,
+  setIsVisibleMap}){
   const [country, setCountry] = useState("DO")
   const [callingCode, setCallingcode] = useState("1")
   const [phone, setphone] = useState("")
@@ -197,7 +231,8 @@ function Form_add({FData,setFData,errorName,errorDescription,errorDireccion,erro
 }
 
 function Map_Mascostas({isVisibleMap,setIsVisibleMap,setLocationMascota,toastRef,locationMascota}) {
- 
+  const[newRegion, setRegion] = useState(null) 
+
   useEffect(() => {
     (async() => {
         const response = await getCurrentLocation() //obtiene la localizacion
@@ -208,11 +243,11 @@ function Map_Mascostas({isVisibleMap,setIsVisibleMap,setLocationMascota,toastRef
     })()
 }, [])
 
-// const confirmLocation = () => {
-//   setLocationMascota(location);
-//     toastRef.current.show("Localizacion guardada correctamente");
-//     setIsVisibleMap(false);
-// }
+    const confirmLocation = () => {
+    setLocationMascota(newRegion);
+    toastRef.current.show("Localizacion guardada correctamente", 3000);
+    setIsVisibleMap(false);
+    }
 
   return (
   
@@ -224,6 +259,7 @@ function Map_Mascostas({isVisibleMap,setIsVisibleMap,setLocationMascota,toastRef
                             style={styles.mapStyle}
                             initialRegion={locationMascota}
                             showsUserLocation={true}
+                            onRegionChange={(region)=> setLocationMascota(region)}
                             // onRegionChange={(region) => setLocation(region)}
                         >
                         <Marker
@@ -241,7 +277,7 @@ function Map_Mascostas({isVisibleMap,setIsVisibleMap,setLocationMascota,toastRef
                         title="Guardar Ubicacion"
                         containerStyle={styles.viewMapBtnContainerSave}
                         buttonStyle={styles.viewMapBtnSave}
-                        // onPress={confirmLocation}
+                        onPress={confirmLocation}
                     />
                     <Button
                         title="Cancelar Ubicacion"

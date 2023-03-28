@@ -1,15 +1,16 @@
-import { StyleSheet, Text, View, ScrollView,Alert} from 'react-native'
+import { StyleSheet, Text, View, ScrollView,Alert,Dimensions} from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { Button, Input, Icon, color, Avatar } from 'react-native-elements';
 import CountryPicker from 'react-native-country-picker-modal'
 import { map, size, filter, isEmpty } from 'lodash'
-import { cargarimagegallery,getCurrentLocation,loadImageFromCamera } from '../../utilidades/helpers';
+import { cargarimagegallery,getCurrentLocation,loadImageFromCamera, validateEmail } from '../../utilidades/helpers';
 import { openGalleryAndSaveImage, Cameras } from './../../utilidades/helpers';
 import MapView from "react-native-maps"
 import { Marker } from 'react-native-maps';
 
 import Modal from '../Modal'
 
+const widthScreen = Dimensions.get("window").width; //para obtener las dimensiones de la pantalla
 
 export default function Add_mascotas_form({toastRef, setloading, navigation}) {
   
@@ -27,12 +28,57 @@ export default function Add_mascotas_form({toastRef, setloading, navigation}) {
   const [locationMascota, setLocationMascota] = useState(null);
 
   const add_mascotas = () =>{
-    console.log(FData)
+    if(!validForm()){
+        return
+    }
     console.log("esta to jevi")
   }
   
- 
+ const validForm = () => {
+      clearErrors()
+      let isValid = true
+
+      if(isEmpty(FormData.text)) {
+        sEterrorName("Debes ingresar el nombre de la mascota")
+        isValid = false
+      }
+
+      if(isEmpty(FormData.address)) {
+        seterrorDireccion("Debes ingresar la direccion donde se encuentra la mascota")
+        isValid = false
+      }
+
+      if(!validateEmail(FormData.email)) {
+        setErrorEmail("Debes ingresar un email de contacto validor")
+        isValid =  false
+      }
+
+      if(isEmpty(FormData.view_phone)){
+        seterrorPhone("Debes ingresar un telefono de contacto")
+        isValid = false
+      }
+
+      if(isEmpty(FormData.description)){
+        setErrorDescription("Debes ingresar la descripcion")
+        isValid = false
+      }
+
+      if(!locationMascota){
+        toastRef.current.show("Debes de ingresar la localizacion de la mascota en el mapa.", 3000)
+        isValid =  false
+      }
+
+      return isValid
+ }
   
+  const clearErrors = () =>{
+    sEterrorName(null)
+    setErrorEmail(null)
+    seterrorDireccion(null)
+    setErrorDescription(null)
+    seterrorPhone(null)
+  }
+
   return (
     <View style={styles.container_view}>
       <Form_add                                   //pasando estados al form
@@ -167,7 +213,7 @@ function Form_add({
   return(
     <View style={styles.form_view}>
       <Input
-        placeholder="Nombre del Animal"
+        placeholder="Nombre de la mascota"
         defaultValue={FData.name}
         onChange={(e) => onChange(e, "name")} 
         errorMessage={errorName}
@@ -230,21 +276,21 @@ function Form_add({
 
 }
 
-function Map_Mascostas({isVisibleMap,setIsVisibleMap,setLocationMascota,toastRef,locationMascota}) {
-  const[newRegion, setRegion] = useState(null) 
+function Map_Mascostas({isVisibleMap,setIsVisibleMap,setLocationMascota,toastRef}) {
+  const[newRegion, setNewRegion] = useState(null) 
 
   useEffect(() => {
     (async() => {
         const response = await getCurrentLocation() //obtiene la localizacion
         if (response.status) {
-          setLocationMascota(response.location)
+          setNewRegion(response.location)
           console.log(response.location)
         }
     })()
 }, [])
 
     const confirmLocation = () => {
-    setLocationMascota(newRegion);
+    setLocationMascota(newRegion); //Muestra mensaje de localizacion guardada!
     toastRef.current.show("Localizacion guardada correctamente", 3000);
     setIsVisibleMap(false);
     }
@@ -254,18 +300,18 @@ function Map_Mascostas({isVisibleMap,setIsVisibleMap,setLocationMascota,toastRef
     <Modal isVisible={isVisibleMap} setVisible={setIsVisibleMap}> 
           <View>
                 {
-                    locationMascota && (
+                    newRegion && (
                         <MapView
                             style={styles.mapStyle}
-                            initialRegion={locationMascota}
+                            initialRegion={newRegion}
                             showsUserLocation={true}
-                            onRegionChange={(region)=> setLocationMascota(region)}
+                            onRegionChange={(region)=> setNewRegion(region)}
                             // onRegionChange={(region) => setLocation(region)}
                         >
                         <Marker
                                 coordinate={{
-                                    latitude: locationMascota.latitude,
-                                    longitude: locationMascota.longitude,
+                                    latitude: newRegion.latitude,
+                                    longitude: newRegion.longitude,
                                 }}
                                 draggable
                             /> 

@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View, ScrollView} from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Button, Input, Icon, color, Avatar } from 'react-native-elements';
 import CountryPicker from 'react-native-country-picker-modal'
 import { map, size, filter, isEmpty } from 'lodash'
-import { cargarimagegallery,loadImageFromCamera } from '../../utilidades/helpers';
+import { cargarimagegallery,getCurrentLocation,loadImageFromCamera } from '../../utilidades/helpers';
 import { openGalleryAndSaveImage, Cameras } from './../../utilidades/helpers';
+import MapView from "react-native-maps"
+import { Marker } from 'react-native-maps';
 
 import Modal from '../Modal'
 
@@ -52,26 +54,15 @@ export default function Add_mascotas_form({toastRef, setloading, navigation}) {
         onPress={add_mascotas}
         buttonStyle={styles.btnmascotas}
       />
-      <Map_Mascostas isVisibleMap={isVisibleMap} 
+      <Map_Mascostas 
+      isVisibleMap={isVisibleMap} 
       setIsVisibleMap={setIsVisibleMap} 
+      locationMascota={locationMascota}
       setLocationMascota={setLocationMascota}
       toastRef={toastRef}/>
     </View>
   )
 }
- 
-function Map_Mascostas({isVisibleMap,setIsVisibleMap,setLocationMascota,toastRef}) {
-  
-  
-  return (
-    <Modal isVisible={isVisibleMap} setIsVisible={isVisibleMap}>
-        
-        <Text>este es el mapa</Text>
-       
-    </Modal>
-)
-}
-
 
 function UploadImage({toastRef,seleccionImagenes,setSeleccionImagenes}){
 
@@ -205,6 +196,66 @@ function Form_add({FData,setFData,errorName,errorDescription,errorDireccion,erro
 
 }
 
+function Map_Mascostas({isVisibleMap,setIsVisibleMap,setLocationMascota,toastRef,locationMascota}) {
+ 
+  useEffect(() => {
+    (async() => {
+        const response = await getCurrentLocation() //obtiene la localizacion
+        if (response.status) {
+          setLocationMascota(response.location)
+          console.log(response.location)
+        }
+    })()
+}, [])
+
+// const confirmLocation = () => {
+//   setLocationMascota(location);
+//     toastRef.current.show("Localizacion guardada correctamente");
+//     setIsVisibleMap(false);
+// }
+
+  return (
+  
+    <Modal isVisible={isVisibleMap} setVisible={setIsVisibleMap}> 
+          <View>
+                {
+                    locationMascota && (
+                        <MapView
+                            style={styles.mapStyle}
+                            initialRegion={locationMascota}
+                            showsUserLocation={true}
+                            // onRegionChange={(region) => setLocation(region)}
+                        >
+                        <Marker
+                                coordinate={{
+                                    latitude: locationMascota.latitude,
+                                    longitude: locationMascota.longitude,
+                                }}
+                                draggable
+                            /> 
+                        </MapView>
+                    )
+                }
+                <View style={styles.viewMapBtn}>
+                    <Button
+                        title="Guardar Ubicacion"
+                        containerStyle={styles.viewMapBtnContainerSave}
+                        buttonStyle={styles.viewMapBtnSave}
+                        // onPress={confirmLocation}
+                    />
+                    <Button
+                        title="Cancelar Ubicacion"
+                        containerStyle={styles.viewMapBtnContainerCancel}
+                        buttonStyle={styles.viewMapBtnCancel}
+                        onPress={() => setIsVisibleMap(false)}
+                    />
+                </View>
+            </View> 
+       
+    </Modal>
+)
+}
+
 const defaultFormValues = () => { //devolvera los valores por defecto del formulario
   return { 
       name: "", 
@@ -259,5 +310,26 @@ miniaturaStyle: {
   width: 70,
   height: 70,
   marginRight: 10,
+},
+mapStyle: {
+  width: "100%",
+  height: 550,
+},
+viewMapBtn: {
+  flexDirection: "row",
+  justifyContent: "center",
+  marginTop: 10,
+},
+viewMapBtnContainerCancel: {
+  paddingLeft: 5,
+},
+viewMapBtnCancel: {
+  backgroundColor: "#a65273",
+},
+viewMapBtnContainerSave: {
+  paddingRight: 5,
+},
+viewMapBtnSave: {
+  backgroundColor: "#442484",
 },
 })

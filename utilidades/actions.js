@@ -46,7 +46,7 @@ export const loginEmailandPass = async(email, password) => {
     return R
 }
 
-export const subirImagen = async (image, path, name) => {
+export const uploadImage = async (image, path, name) => {
     const result = { statusResponse: false, error: null, url: null }
     const ref = firebase.storage().ref(path).child(name) //almacena la ruta de la imagen en el firebase
     const blob = await fileToBlob(image) //convertir a binario
@@ -63,11 +63,11 @@ export const subirImagen = async (image, path, name) => {
     return result
 }
 
-export const actualizarPerfil = async (data) => {
+export const updateProfile = async (data) => {
     const result = { statusResponse: false, error: null }
  
     try {
-        await firebase.auth().currentUser.actualizarPerfil(data)
+        await firebase.auth().currentUser.updateProfile(data)
     } catch (error) {
         result.statusResponse = false    
         result.error = error    

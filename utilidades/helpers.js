@@ -41,6 +41,27 @@ export const cargarimagegallery = async (array) => {
     return response  
 }
 
+
+export const loadImageFromGallery  = async(array) => {
+  const response = { status: false, image: null }
+  const resultPermissions = await Permissions.askAsync(Permissions.MEDIA_LIBRARY)
+  if (resultPermissions.status === "denied") {
+      Alert.alert("Para cargar una imagen desde la galería, es necesario otorgar permiso para acceder a las imágenes. Por favor, otorgue permiso en la configuración de su dispositivo")
+      return response
+  }
+  const result = await ImagePicker.launchImageLibraryAsync ({
+      allowsEditing: true,
+      aspect: array
+  })
+  if (result.cancelled) {
+      return response
+  }
+  response.status = true
+  response.image = result.assets[0].uri
+  return response
+}
+
+// Metodo para capturar imagen desde la camara
 export const loadImageFromCamera = async(array) => {
   const response = { status: false, image: null }
   const resultPermissions = await Permissions.askAsync(Permissions.CAMERA)
@@ -56,9 +77,30 @@ export const loadImageFromCamera = async(array) => {
       return response
   }
   response.status = true
-  response.image = result.uri
+  response.image = result.assets[0].uri
   return response
 }
+
+
+
+// export const loadImageFromCamera = async(array) => {
+//   const response = { status: false, image: null }
+//   const resultPermissions = await Permissions.askAsync(Permissions.CAMERA)
+//   if (resultPermissions.status === "denied") {
+//       Alert.alert("Debes dar permiso para acceder a la cámara.")
+//       return response
+//   }
+//   const result = await ImagePicker.launchCameraAsync({
+//       allowsEditing: true,
+//       aspect: array
+//   })
+//   if (result.cancelled) {
+//       return response
+//   }
+//   response.status = true
+//   response.image = result.uri
+//   return response
+// }
 
 // export const openGalleryAndSaveImage = async () => {
 //   const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();

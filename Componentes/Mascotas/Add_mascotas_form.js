@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react'
 import { Button, Input, Icon, color, Avatar,Image } from 'react-native-elements';
 import CountryPicker from 'react-native-country-picker-modal'
 import { map, size, filter, isEmpty } from 'lodash'
-import { cargarimagegallery,getCurrentLocation,loadImageFromCamera, validateEmail } from '../../utilidades/helpers';
+import { loadImageFromGallery,cargarimagegallery,getCurrentLocation,loadImageFromCamera, validateEmail } from '../../utilidades/helpers';
 import { openGalleryAndSaveImage, Cameras } from './../../utilidades/helpers';
 import MapView from "react-native-maps"
 import { Marker } from 'react-native-maps';
@@ -139,14 +139,16 @@ function ImagenMascota({imagenMascota}) {
 
 function UploadImage({toastRef,seleccionImagenes,setSeleccionImagenes}){
 
-  const seleccionImagen = async() =>{
-      const response = await cargarimagegallery([4,3])
+  const seleccionImagen = async() => {
+      const response = await loadImageFromGallery([4,3])
+      console.log("hola")
+
       if(!response.status){
         toastRef.current.show("No se selecciono ninguna imagen",3000)
         return
       }
 
-      setSeleccionImagenes([...seleccionImagenes,response.image])
+      setSeleccionImagenes([...seleccionImagenes,response.image]);
   }
 
   // const imageSelect = async () => {
@@ -204,12 +206,12 @@ const removeImage = (image) => {
         }
       
       {
-      map(seleccionImagenes, (imagenesmascotas, index) => (
+      map(seleccionImagenes, (imagenMascota, index) => (
           <Avatar
             key={index}
             style={styles.miniaturaStyle}
-            source={{ uri: imagenesmascotas }}
-            onPress={() => removeImage(imagenesmascotas)} //llamando a la funcion eliminar imagen
+            source={{ uri: imagenMascota }}
+            onPress={() => removeImage(imagenMascota)} //llamando a la funcion eliminar imagen
           />
          ))
         }

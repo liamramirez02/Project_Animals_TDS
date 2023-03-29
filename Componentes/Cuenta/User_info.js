@@ -1,34 +1,89 @@
 import { Alert, StyleSheet, Text, View } from 'react-native'
 import React, {useState}from 'react'
 import { Avatar } from 'react-native-elements'
-import { cargarimagegallery } from '../../utilidades/helpers'
-import { subirImagen } from '../../utilidades/actions'
-import { actualizarPerfil } from './../../utilidades/actions';
+import { cargarimagegallery,loadImageFromCamera,loadImageFromGallery } from '../../utilidades/helpers'
+import { subirImagen,uploadImage } from '../../utilidades/actions'
+import { actualizarPerfi,updateProfile } from './../../utilidades/actions';
 
 export default function user_info({user,setLoading, setLoadingtext}) { //recibe el usuario
 
     
     const [photoURL, setphotoURL] = useState(user.photoURL)
 
-    const cambiarimagen = async () => {
-        const result = await cargarimagegallery([1, 1])
-        if (!result.status) {
-            return 
-        }
-        setLoadingtext("Actualizando Imagen...")
-        setLoading(true)
-        const resultado_subirImagen = await subirImagen(result.image,"Perfiles", user.uid)
+    // const cambiarimagen = async () => {
+    //     const result = await cargarimagegallery([1, 1])
+    //     if (!result.status) {
+    //         return 
+    //     }
+    //     setLoadingtext("Actualizando Imagen...")
+    //     setLoading(true)
+    //     const resultado_subirImagen = await subirImagen(result.image,"Perfiles", user.uid)
         
-        if (!resultado_subirImagen.statusResponse){
-            setLoading(false)
-            Alert.alert("Ha ocurrido un error en la subida de la Imagen")
-            return 
+    //     if (!resultado_subirImagen.statusResponse){
+    //         setLoading(false)
+    //         Alert.alert("Ha ocurrido un error en la subida de la Imagen")
+    //         return 
+    //     }
+
+    //     const resultado_actualizarImagen = await actualizarPerfil({ photoURL: resultado_subirImagen.url})
+    //     setLoading(false)
+    //     setphotoURL(resultado_subirImagen.url)
+
+    // }
+
+    const changePhotoFromGallery = async() => {
+        const result = await loadImageFromGallery([1, 1])
+        if (!result.status) {
+            return
         }
-
-        const resultado_actualizarImagen = await actualizarPerfil({ photoURL: resultado_subirImagen.url})
+        setLoadingtext("Actualizando imagen...")
+        setLoading(true)
+        const resultUploadImage = await uploadImage(result.image, "avatars", user.uid)
+        if (!resultUploadImage.statusResponse) {
+            setLoading(false)
+            Alert.alert("Ha ocurrido un error al almacenar la foto de perfil.")
+            return
+        }
+        const resultUpdateProfie = await updateProfile({ photoURL: resultUploadImage.url })
         setLoading(false)
-        setphotoURL(resultado_subirImagen.url)
+            setphotoURL(resultUploadImage.url)
+    }
 
+    const changePhotoFromCamera = async() => {
+        const result = await loadImageFromCamera([1, 1])
+        if (!result.status) {
+            return
+        }
+        setLoadingtext("Actualizando imagen...")
+        setLoading(true)
+        const resultUploadImage = await uploadImage(result.image, "avatars", user.uid)
+        if (!resultUploadImage.statusResponse) {
+            setLoading(false)
+            Alert.alert("Ha ocurrido un error al almacenar la foto de perfil.")
+            return
+        }
+        const resultUpdateProfie = await updateProfile({ photoURL: resultUploadImage.url })
+        setLoading(false)
+            setphotoURL(resultUploadImage.url)
+    }
+
+    function PhotoSource() {
+        Alert.alert(  
+        'Elija una opción',  
+        'De dónde quiere obtener la imagen?',  
+        [  
+            {text: 'Cancelar', onPress: () => null},  
+            {  
+                text: 'Cámara',  
+                onPress: changePhotoFromCamera  
+            },  
+            {
+                text: 'Galería',
+                onPress: changePhotoFromGallery
+            },  
+        ],  
+        {cancelable: false}  
+        )  
     }
 
         return (
@@ -37,7 +92,7 @@ export default function user_info({user,setLoading, setLoadingtext}) { //recibe 
        rounded
        size="large"
     //    containerStyle={styles.userAvatar}
-       onPress={cambiarimagen}
+       onPress={PhotoSource}
        source={
            photoURL 
            ? { uri: photoURL }               //si el user tiene foto usara la url que el usuario le indique

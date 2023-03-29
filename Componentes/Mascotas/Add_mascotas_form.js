@@ -16,7 +16,7 @@ export default function Add_mascotas_form({toastRef, setloading, navigation}) {
   
 
   const [FData, setFData] = useState(defaultFormValues())
-  const [errorName, sEterrorName] = useState(null)
+  const [errorName, setErrorName] = useState(null)
   const [errorDescription, setErrorDescription] = useState(null)
   const [errorEmail, setErrorEmail] = useState(null)
   const [errorDireccion, seterrorDireccion] = useState(null)
@@ -34,31 +34,33 @@ export default function Add_mascotas_form({toastRef, setloading, navigation}) {
     console.log("esta to jevi")
   }
   
+
+  //Validacion del formulario
  const validForm = () => {
       clearErrors()
       let isValid = true
 
-      if(isEmpty(FormData.text)) {
-        sEterrorName("Debes ingresar el nombre de la mascota")
+      if(isEmpty(FData.name)) {
+        setErrorName("Debes ingresar la mascota")
         isValid = false
       }
 
-      if(isEmpty(FormData.address)) {
+      if(isEmpty(FData.address)) {
         seterrorDireccion("Debes ingresar la direccion donde se encuentra la mascota")
         isValid = false
       }
 
-      if(!validateEmail(FormData.email)) {
+      if(!validateEmail(FData.email)) {
         setErrorEmail("Debes ingresar un email de contacto validor")
         isValid =  false
       }
 
-      if(isEmpty(FormData.view_phone)){
-        seterrorPhone("Debes ingresar un telefono de contacto")
+      if(isEmpty(FData.phone)){
+        seterrorPhone("Debes ingresar un telefono de contacto Valido")
         isValid = false
       }
 
-      if(isEmpty(FormData.description)){
+      if(isEmpty(FData.description)){
         setErrorDescription("Debes ingresar la descripcion")
         isValid = false
       }
@@ -67,12 +69,16 @@ export default function Add_mascotas_form({toastRef, setloading, navigation}) {
         toastRef.current.show("Debes de ingresar la localizacion de la mascota en el mapa.", 3000)
         isValid =  false
       }
+    //   else if(size(seleccionImagenes) === 0) {
+    //     toastRef.current.show("Tienes que agregar al menos una imagen del restaurante.", 3000);
+    //     isValid = false
+    // }
 
       return isValid
  }
   
   const clearErrors = () =>{
-    sEterrorName(null)
+    setErrorName(null)
     setErrorEmail(null)
     seterrorDireccion(null)
     setErrorDescription(null)

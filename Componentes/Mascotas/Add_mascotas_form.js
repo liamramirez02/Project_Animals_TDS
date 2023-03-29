@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, ScrollView,Alert,Dimensions} from 'react-native'
 import React, {useState, useEffect} from 'react'
-import { Button, Input, Icon, color, Avatar } from 'react-native-elements';
+import { Button, Input, Icon, color, Avatar,Image } from 'react-native-elements';
 import CountryPicker from 'react-native-country-picker-modal'
 import { map, size, filter, isEmpty } from 'lodash'
 import { cargarimagegallery,getCurrentLocation,loadImageFromCamera, validateEmail } from '../../utilidades/helpers';
@@ -86,7 +86,11 @@ export default function Add_mascotas_form({toastRef, setloading, navigation}) {
   }
 
   return (
-    <View style={styles.container_view}>
+    <ScrollView style={styles.container_view}>
+      <ImagenMascota
+        imagenMascota={seleccionImagenes[0]}
+      />
+
       <Form_add                                   //pasando estados al form
         FData={FData}
         setFData={setFData}
@@ -113,14 +117,30 @@ export default function Add_mascotas_form({toastRef, setloading, navigation}) {
       locationMascota={locationMascota}
       setLocationMascota={setLocationMascota}
       toastRef={toastRef}/>
-    </View>
+    </ScrollView>
+  )
+}
+
+function ImagenMascota({imagenMascota}) {
+
+  return (
+      <View style={styles.vPhoto}>
+          <Image
+              source={
+                imagenMascota
+                      ? { uri: imagenMascota }
+                      : require("../../assets/no-image.png")
+              }
+              style={{ width: widthScreen, height: 200 }}
+          />
+      </View>
   )
 }
 
 function UploadImage({toastRef,seleccionImagenes,setSeleccionImagenes}){
 
   const seleccionImagen = async() =>{
-      const response = await loadImageFromCamera([4,3])
+      const response = await cargarimagegallery([4,3])
       if(!response.status){
         toastRef.current.show("No se selecciono ninguna imagen",3000)
         return
@@ -407,6 +427,11 @@ viewMapBtn: {
   flexDirection: "row",
   justifyContent: "center",
   marginTop: 10,
+},
+vPhoto: {
+  alignItems: "center",
+  height: 200,
+  marginBottom: 20,
 },
 viewMapBtnContainerCancel: {
   paddingLeft: 5,

@@ -7,6 +7,7 @@ import { loadImageFromGallery,cargarimagegallery,getCurrentLocation,loadImageFro
 import { openGalleryAndSaveImage, Cameras } from './../../utilidades/helpers';
 import MapView from "react-native-maps"
 import { Marker } from 'react-native-maps';
+import uuid from 'random-uuid-v4';
 
 import Modal from '../Modal'
 
@@ -27,13 +28,30 @@ export default function Add_mascotas_form({toastRef, setloading, navigation}) {
   const [isVisibleMap, setIsVisibleMap] = useState(false);
   const [locationMascota, setLocationMascota] = useState(null);
 
-  const add_mascotas = () =>{
+  const add_mascotas = async() =>{
     if(!validForm()){
         return
     }
+    setloading(true)
+    const response = await UploadImage()
+    console.log(response)
+    setloading(false)
+
     console.log("esta to jevi")
   }
   
+  const UploadImage = async() => {
+    const imageUrl = []
+    await Promise.all(
+      map(seleccionImagenes, async(image) => {
+          const response = await UploadImage(image, "Mascotas", uuid())
+          if(response.status){
+            imageUrl.push(response.url)
+          }
+      })
+    )
+    return imageUrl
+  }
 
   //Validacion del formulario
  const validForm = () => {

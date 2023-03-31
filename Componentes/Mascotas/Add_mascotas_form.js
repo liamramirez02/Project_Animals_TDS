@@ -10,6 +10,7 @@ import { Marker } from 'react-native-maps';
 import uuid from 'random-uuid-v4';
 
 import Modal from '../Modal'
+import { uploadImage } from '../../utilidades/actions';
 
 const widthScreen = Dimensions.get("window").width; //para obtener las dimensiones de la pantalla
 
@@ -44,7 +45,7 @@ export default function Add_mascotas_form({toastRef, setloading, navigation}) {
     const imageUrl = []
     await Promise.all(
       map(seleccionImagenes, async(image) => {
-          const response = await UploadImage(image, "Mascotas", uuid())
+          const response = await uploadImage(image, "Mascotas", uuid())
           if(response.status){
             imageUrl.push(response.url)
           }

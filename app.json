@@ -18,15 +18,22 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.itla.petsafe"
     },
     "android": {
+      "package": "com.itla.petsafe",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAcO3kFRT1zMT48wfmo0mNeQxpg4c0d5Bo"
+        }
+      },
       "permissions": [
-        "CAMERA_ROLL", 
+        "CAMERA_ROLL",
         "MEDIA_LIBRARY",
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE",
@@ -35,9 +42,14 @@
         "ACCESS_FINE_LOCATION",
         "USER_FACING_NOTIFICATIONS"
       ]
-        },
+    },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5f341a30-ef77-4d19-9fdd-461d11301ddb"
+      }
     }
   }
 }

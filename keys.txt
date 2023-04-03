@@ -1,0 +1,18 @@
+API KEY GOOGLE: AIzaSyAcO3kFRT1zMT48wfmo0mNeQxpg4c0d5Bo
+
+comando para generar el apk: eas build -p android
+
+
+
+
+
+Comando para generar las llaves: expo fetch:android:hashes
+
+expo credentials:manager
+
+Google Certificate Fingerprint:     90:26:C1:C5:05:AC:9C:90:AD:8F:3B:E4:4C:95:6A:9F:F6:3E:23:5D         CREDENTIAL APIS&SERVICES (GOOGLE CLOUD)
+Google Certificate Hash (SHA-1):    9026C1C505AC9C90AD8F3BE44C956A9FF63E235D
+Google Certificate Hash (SHA-256):  58E8535A56F4556B988FD4339601C31AA61C3E722D8C5409FD969783C8EA3022
+Facebook Key Hash:                  kCbBxQWsnJCtjzvkTJVqn/Y+I10=
+
+

@@ -120,7 +120,7 @@ export const updatePassword = async (password) => { //actualizar contra
     return result
 }
 
-export const addDocumentWithoutId = async(collection, data) => {
+export const addDocumentWithoutId = async(collection, data) => { //agregar collecion de datos al firebase Database
     const result = { statusResponse: true, error: null }
     try {
         await db.collection(collection).add(data)

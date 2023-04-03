@@ -3,15 +3,32 @@
 //View: contenedor
 
 import { StyleSheet, Text, View } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState,useCallback} from 'react'
 import {Icon} from 'react-native-elements'
 import { useEffect } from 'react';
 import Loading from './../../Componentes/Loading';
 import firebase from 'firebase/app'
+import { useFocusEffect } from '@react-navigation/native' //para cargar la pantalla
+import { getMascotas } from '../../utilidades/actions';
 
 export default function Mascotas({navigation}) {
 
   const [user, setUser] = useState(null)
+  const [mascotas, setMascotas] = useState(null)
+  const [startMascota, setStartMascota] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+
+  const [activeSlide, setActiveSlide] = useState(0)
+  const [isFavorite, setIsFavorite] = useState(false)
+  const [userLogged, setUserLogged] = useState(false)
+  const [loadingText, setLoadingText] = useState(null)
+  const [currentUser, setcurrentUser] = useState(null)
+  const [modalNotification, setModalNotification] = useState(false)
+
+  
+  const limitMascotas = 7
+  console.log("mascotas",mascotas)
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
@@ -19,6 +36,28 @@ export default function Mascotas({navigation}) {
     })
 
   },[])
+
+
+  useFocusEffect( //Obteniendo la lista de mascotas
+    React.useCallback(() => {
+        async function fetchData() {
+            setLoading(true);
+            const response = await getMascotas(limitMascotas);
+            
+            if(response.statusResponse) {
+              setStartMascota(response.startMascota);
+              setMascotas(response.mascotas);
+            }
+            setLoading(false);
+        }
+
+        fetchData();
+    }, [])
+);
+
+
+
+
 
 if (user === null) {
   return <Loading isVisible={true} text="Cargando..."/>
@@ -41,7 +80,7 @@ return (
       />
       )
       }
-
+        <Loading isVisible={loading} text="Cargando restaurantes..."/>
     </View>
   )
 }

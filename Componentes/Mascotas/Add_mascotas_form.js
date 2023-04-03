@@ -10,11 +10,12 @@ import { Marker } from 'react-native-maps';
 import uuid from 'random-uuid-v4';
 
 import Modal from '../Modal'
-import { uploadImage } from '../../utilidades/actions';
+import { getCurrentUser, uploadImage } from '../../utilidades/actions';
+import { addDocumentWithoutId } from './../../utilidades/actions';
 
 const widthScreen = Dimensions.get("window").width; //para obtener las dimensiones de la pantalla
 
-export default function Add_mascotas_form({toastRef, setloading, navigation}) {
+export default function Add_mascotas_form({toastRef, setLoading, navigation}) {
   
 
   const [FData, setFData] = useState(defaultFormValues())
@@ -33,15 +34,35 @@ export default function Add_mascotas_form({toastRef, setloading, navigation}) {
     if(!validForm()){
         return
     }
-    setloading(true)
-    const response = await UploadImage()
-    console.log(response)
-    setloading(false)
 
-    console.log("esta to jevi")
+    setLoading(true)
+    const responseuploadimage = await uploadImages()
+    const mascota = {
+      name: FData.name,
+      address: FData.address,
+      description: FData.description,
+      phone: FData.phone,
+      location: locationMascota,
+      images: responseuploadimage,
+      rating: 0,
+      ratingTotal: 0,
+      quantityVoting: 0,
+      createAt: new Date(), //fecha actual 
+      createBy: getCurrentUser().uid //id del usuario que creo el reporte de la mascota
+    }
+    const responseAddDocument = await addDocumentWithoutId("mascotas", mascota)
+    setLoading(false)
+
+    if (!responseAddDocument.statusResponse) {
+      toastRef.current.show("Error al grabar la mascota, intentelo más tarde", 3000)
+      return
+    }
+
+    navigation.navigate("mascotas")
+    console.log(FData)
   }
   
-  const UploadImage = async() => {
+  const uploadImages = async() => {
     const imageUrl = []
     await Promise.all(
       map(seleccionImagenes, async(image) => {
@@ -156,11 +177,10 @@ function ImagenMascota({imagenMascota}) {
   )
 }
 
-function UploadImage({toastRef,seleccionImagenes,setSeleccionImagenes}){
+function UploadImage({toastRef,seleccionImagenes=[],setSeleccionImagenes}){
 
   const seleccionImagen = async() => {
       const response = await loadImageFromGallery([4,3])
-      console.log("hola")
 
       if(!response.status){
         toastRef.current.show("No se selecciono ninguna imagen",3000)
@@ -168,7 +188,10 @@ function UploadImage({toastRef,seleccionImagenes,setSeleccionImagenes}){
       }
 
       setSeleccionImagenes([...seleccionImagenes,response.image]);
+
+
   }
+
 
   // const imageSelect = async () => {
   //   const response = await loadImageFromGallery([4, 3])

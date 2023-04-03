@@ -38,7 +38,7 @@ export default function user_info({user,setLoading, setLoadingtext}) { //recibe 
         }
         setLoadingtext("Actualizando imagen...")
         setLoading(true)
-        const resultUploadImage = await uploadImage(result.image, "avatars", user.uid)
+        const resultUploadImage = await uploadImage(result.image, "Perfiles", user.uid)
         if (!resultUploadImage.statusResponse) {
             setLoading(false)
             Alert.alert("Ha ocurrido un error al almacenar la foto de perfil.")
@@ -56,7 +56,7 @@ export default function user_info({user,setLoading, setLoadingtext}) { //recibe 
         }
         setLoadingtext("Actualizando imagen...")
         setLoading(true)
-        const resultUploadImage = await uploadImage(result.image, "avatars", user.uid)
+        const resultUploadImage = await uploadImage(result.image, "Perfiles", user.uid)
         if (!resultUploadImage.statusResponse) {
             setLoading(false)
             Alert.alert("Ha ocurrido un error al almacenar la foto de perfil.")

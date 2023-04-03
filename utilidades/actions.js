@@ -5,7 +5,7 @@ import 'firebase/firestore'
 import { fileToBlob } from './helpers'
 // other services is needed
 
-const db = firebase.firestore(firebaseApp)  //acceso a base de datos
+const db = firebase.firestore(firebaseApp) //acceso a base de datos
 
 export const isUserLogged = () => {
     let isLogged = false
@@ -63,7 +63,7 @@ export const uploadImage = async (image, path, name) => {
     return result
 }
 
-export const updateProfile = async (data) => {
+export const updateProfile = async (data) => { //actualizar perfil
     const result = { statusResponse: false, error: null }
  
     try {
@@ -76,7 +76,7 @@ export const updateProfile = async (data) => {
     return result
 }
 
-export const reauthenticate = async(password) => {
+export const reauthenticate = async(password) => {  //reautenticacion de usuario
     const result = { statusResponse: false, error: null }
     const user = getCurrentUser()    
     const credentials = firebase.auth.EmailAuthProvider.credential(
@@ -94,7 +94,7 @@ export const reauthenticate = async(password) => {
     return result
 }
 
-export const updateEmail = async (email) => {
+export const updateEmail = async (email) => {  //actualizar email
     const result = { statusResponse: false, error: null }
  
     try {
@@ -107,7 +107,7 @@ export const updateEmail = async (email) => {
     return result
 }
 
-export const updatePassword = async (password) => {
+export const updatePassword = async (password) => { //actualizar contra
     const result = { statusResponse: false, error: null }
  
     try {
@@ -118,4 +118,16 @@ export const updatePassword = async (password) => {
     }
 
     return result
+}
+
+export const addDocumentWithoutId = async(collection, data) => {
+    const result = { statusResponse: true, error: null }
+    try {
+        await db.collection(collection).add(data)
+    } catch (error) {
+        console.log(error)
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
 }

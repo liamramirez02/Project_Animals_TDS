@@ -10,6 +10,8 @@ import Loading from './../../Componentes/Loading';
 import firebase from 'firebase/app'
 import { useFocusEffect } from '@react-navigation/native' //para cargar la pantalla
 import { getMascotas } from '../../utilidades/actions';
+import Listado_Macotas from '../../Componentes/Mascotas/Listado_Macotas';
+import { size } from 'lodash';
 
 export default function Mascotas({navigation}) {
 
@@ -66,7 +68,19 @@ if (user === null) {
 
 return (
     <View style={styles.viewB}>
-      <Text>hola mascota</Text>
+      {
+        size(mascotas) > 0 ? (
+          <Listado_Macotas
+          mascotas={mascotas}
+          navigation={navigation}/>
+
+        ) :(
+          <View style={styles.notFoundView}>
+            <Text style={styles.notFoundText}> No hay Mascotas registradas</Text>
+          </View>
+
+        )
+}
       {     
 
       user && (                              //si hay usuario muestra el icono
@@ -98,6 +112,14 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOffset: {width: 2, height: 2 },
     shadowOpacity: 0.5    
-
-  }
+  },
+  notFoundView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+},    
+notFoundText: {
+    fontSize: 18,
+    fontWeight: "bold"
+}
 })

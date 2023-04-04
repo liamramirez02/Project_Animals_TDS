@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import Mascotas from '../screens/Mascotas/Mascotas'
 import Add_mascotas from './../screens/Mascotas/Add_mascotas';
+import GoTo_Mascotas from '../Componentes/Mascotas/GoTo_Mascotas';
 
 const Stack = createStackNavigator()
 
@@ -18,6 +19,10 @@ export default function MascotasStack() {
             name="addmascotas"
             component={Add_mascotas}
             options={{ title: "Agregar Mascotas", headerShown: false }}
+        />
+        <Stack.Screen
+            name="ir_mascotas"
+            component={GoTo_Mascotas}
         />
     </Stack.Navigator>
   )

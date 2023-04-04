@@ -27,8 +27,12 @@ function Mascota({mascota, navigation,handleLoadMore}){
     const {id,images,name,address, description,phone,callindCode} = mascota.item
     const imageMascota = images[0]
 
+    const goMascotas = () =>{
+        navigation.navigate("ir_mascotas", {id, name})
+    }
+
     return(
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => goMascotas()}>
                   <View style={styles.vMascota}>
                 <View style={styles.vImagenMascota}>
                     <Image

@@ -3,6 +3,7 @@ import React from 'react'
 import Mascotas from './../../screens/Mascotas/Mascotas';
 import { Image } from 'react-native-elements';
 import { size } from 'lodash';
+import { formatPhone } from './../../utilidades/helpers';
 
 export default function Listado_Macotas({mascotas, navigation, handleLoadMore }) {
   return (
@@ -44,7 +45,7 @@ function Mascota({mascota, navigation,handleLoadMore}){
                 <View>
                     <Text style={styles.nombremascota}>{name}</Text>
                     <Text style={styles.direccionmascota}>{address}</Text>
-                    <Text style={styles.direccionmascota}>+{callindCode}-{phone}</Text>
+                    <Text style={styles.direccionmascota}>{formatPhone(phone)}</Text>
                     <Text style={styles.descripcionanimal}>
                         {
                             size(description) > 0 

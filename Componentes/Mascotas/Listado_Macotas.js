@@ -21,7 +21,7 @@ export default function Listado_Macotas({mascotas, navigation, handleLoadMore })
   )
 }
 
-
+//Funcion para ver y mostrar la informacion de todas las mascotas publicadas en dicho apartado
 function Mascota({mascota, navigation,handleLoadMore}){
 
     const {id,images,name,address, description,phone,callindCode} = mascota.item

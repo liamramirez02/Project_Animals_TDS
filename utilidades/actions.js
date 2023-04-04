@@ -179,3 +179,18 @@ export const getMoreMascotas = async(limitMascotas,startMascota) => {
     }
     return result   
 }  
+
+//Mostrar los datos de las mascotas al momento de seleccionar alguna
+export const getDocumentById = async(collection, id) => { 
+    const result = { statusResponse: true, error: null, document: null }
+    try {
+         const response = await db.collection(collection).doc(id).get()
+         result.document = response.data()
+         result.document.id = response.id
+    } catch (error) {
+        console.log(error)
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}

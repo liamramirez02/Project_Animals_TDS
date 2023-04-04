@@ -132,10 +132,38 @@ export const addDocumentWithoutId = async(collection, data) => { //agregar colle
     return result     
 }
 
+//metodo para obtner los datos de las mascotas
 export const getMascotas = async(limitMascotas) => { 
     const result = { statusResponse: true, error: null, mascotas: [], startMascota: null }
     try {
         const response = await db.collection("mascotas").orderBy("createAt", "desc").limit(limitMascotas).get()
+        if(response.docs.length > 0){
+            result.startMascota = response.docs[response.docs.length -1]
+        }
+        response.forEach((doc) => {
+            const mascota = doc.data()
+            mascota.id = doc.id
+            result.mascotas.push(mascota)
+        });
+
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result   
+}  
+
+//metodo para obtener mas datos de las demas mascotas --SE UTILIZO EL MISMO PERO DENTRO DEL "MASCOTAS.JS"--
+
+export const getMoreMascotas = async(limitMascotas,startMascota) => { 
+    const result = { statusResponse: true, error: null, mascotas: [], startMascota: null }
+    try {
+        const response = await db
+        .collection("mascotas")
+        .orderBy("createAt", "desc")
+        .StartAfter(startMascota.data().createAt)
+        .limit(limitMascotas)
+        .get()
         if(response.docs.length > 0){
             result.startMascota = response.docs[response.docs.length -1]
         }

@@ -9,11 +9,11 @@ export default function Listado_Macotas({mascotas, navigation, handleLoadMore })
     <View>
       <FlatList
         data={mascotas}
-        keyExtractor={(item, index) => index.toString()}  //cada elemento dentro del FlatList es unico
         renderItem={(mascota) => (  //por cada mascota renderiza una lista
             <Mascota mascota={mascota} navigation={navigation} />
         )}
-        onEndReachedThreshold={0.5}
+        keyExtractor={(item, index) => index.toString()}  //cada elemento dentro del FlatList es unico
+        onEndReachedThreshold={0.5} //limite para llegar al fondo
         onEndReached={handleLoadMore}
    />
     </View>
@@ -21,7 +21,7 @@ export default function Listado_Macotas({mascotas, navigation, handleLoadMore })
 }
 
 
-function Mascota({mascota, navigation}){
+function Mascota({mascota, navigation,handleLoadMore}){
 
     const {id,images,name,address, description,phone,callindCode} = mascota.item
     const imageMascota = images[0]

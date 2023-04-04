@@ -7,11 +7,17 @@ import React, {useState,useCallback} from 'react'
 import {Icon} from 'react-native-elements'
 import { useEffect } from 'react';
 import Loading from './../../Componentes/Loading';
-import firebase from 'firebase/app'
 import { useFocusEffect } from '@react-navigation/native' //para cargar la pantalla
 import { getMascotas } from '../../utilidades/actions';
 import Listado_Macotas from '../../Componentes/Mascotas/Listado_Macotas';
 import { size } from 'lodash';
+import { getMoreMascotas } from './../../utilidades/actions';
+
+import { firebaseApp } from "../../utilidades/firebase"
+import firebase from "firebase/app"
+import "firebase/firestore"
+
+const db = firebase.firestore(firebaseApp)
 
 export default function Mascotas({navigation}) {
 
@@ -30,6 +36,7 @@ export default function Mascotas({navigation}) {
 
   
   const limitMascotas = 7
+
   console.log("mascotas",mascotas)
 
   useEffect(() => {
@@ -57,7 +64,48 @@ export default function Mascotas({navigation}) {
     }, [])
 );
 
+const handleLoadMore = async() => { //cargar mas mascotas en la paginacion
+  if (!startMascota) { 
+      return
+  }
 
+  const resultMascotas = []
+  setLoading(true);
+
+  db.collection("mascotas")
+      .orderBy("createAt", "desc")
+      .startAfter(startMascota.data().createAt)
+      .limit(limitMascotas)
+      .get()
+      .then((response) => {
+          if (response.docs.length > 0) {
+            setStartMascota(response.docs[response.docs.length - 1])
+          } else {
+            setStartMascota(null)
+          }
+
+          response.forEach((doc) => {
+              const mascota = doc.data()
+              mascota.id = doc.id
+              resultMascotas.push(mascota)
+          });
+
+          setMascotas([...mascotas, ...resultMascotas])
+      })
+
+  setLoading(false)
+  // // const resultMascotas = []
+  // setLoading(true);
+
+  // const response = await getMoreMascotas(limitMascotas,startMascota)
+
+  // if(response.statusResponse) {
+  //   setStartMascota(response.startMascota)
+  //   setMascotas({...mascotas, ...response.mascotas})
+  // }
+
+  // setLoading(false)
+}
 
 
 
@@ -72,8 +120,9 @@ return (
         size(mascotas) > 0 ? (
           <Listado_Macotas
           mascotas={mascotas}
-          navigation={navigation}/>
-
+          navigation={navigation}
+          handleLoadMore={handleLoadMore}
+          />
         ) :(
           <View style={styles.notFoundView}>
             <Text style={styles.notFoundText}> No hay Mascotas registradas</Text>

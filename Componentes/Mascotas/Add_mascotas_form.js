@@ -59,21 +59,23 @@ export default function Add_mascotas_form({toastRef, setLoading, navigation}) {
     }
 
     navigation.navigate("mascotas")
-    console.log(FData)
   }
   
-  const uploadImages = async() => {
-    const imageUrl = []
+  const uploadImages = async () => {
+    const imagesUrl = []
+
     await Promise.all(
-      map(seleccionImagenes, async(image) => {
-          const response = await uploadImage(image, "Mascotas", uuid())
-          if(response.status){
-            imageUrl.push(response.url)
-          }
-      })
+        map(seleccionImagenes, async(image) => {
+            const response = await uploadImage(image, "Mascotas", uuid())
+            if (response.statusResponse) {
+                imagesUrl.push(response.url)
+            }
+        })
     )
-    return imageUrl
-  }
+
+    return imagesUrl
+}
+
 
   //Validacion del formulario
  const validForm = () => {
@@ -109,10 +111,10 @@ export default function Add_mascotas_form({toastRef, setLoading, navigation}) {
         toastRef.current.show("Debes de ingresar la localizacion de la mascota en el mapa.", 3000)
         isValid =  false
       }
-    //   else if(size(seleccionImagenes) === 0) {
-    //     toastRef.current.show("Tienes que agregar al menos una imagen del restaurante.", 3000);
-    //     isValid = false
-    // }
+      else if(size(seleccionImagenes) === 0) {
+        toastRef.current.show("Tienes que agregar al menos una imagen del restaurante.", 3000);
+        isValid = false
+    }
 
       return isValid
  }
@@ -144,7 +146,7 @@ export default function Add_mascotas_form({toastRef, setLoading, navigation}) {
       />
       <UploadImage
         toastRef={toastRef}
-        SeleccionImagenes={seleccionImagenes}
+        seleccionImagenes={seleccionImagenes}
         setSeleccionImagenes={setSeleccionImagenes}/>
       <Button
         title={"Salvar Mascota"}
@@ -177,7 +179,7 @@ function ImagenMascota({imagenMascota}) {
   )
 }
 
-function UploadImage({toastRef,seleccionImagenes=[],setSeleccionImagenes}){
+function UploadImage({toastRef,seleccionImagenes,setSeleccionImagenes}){
 
   const seleccionImagen = async() => {
       const response = await loadImageFromGallery([4,3])
@@ -354,7 +356,7 @@ function Map_Mascostas({isVisibleMap,setIsVisibleMap,setLocationMascota,toastRef
         const response = await getCurrentLocation() //obtiene la localizacion
         if (response.status) {
           setNewRegion(response.location)
-          console.log(response.location)
+          // console.log(response.location)
         }
     })()
 }, [])

@@ -3,6 +3,7 @@ import { firebaseApp } from './firebase'
 import * as firebase from 'firebase'
 import 'firebase/firestore'
 import { fileToBlob } from './helpers'
+import Reviews from './../Componentes/Mascotas/Reviews';
 // other services is needed
 
 const db = firebase.firestore(firebaseApp) //acceso a base de datos
@@ -207,3 +208,23 @@ export const updateDocument = async(collection, id,data) => {
     }
     return result     
 }
+
+export const getMascotasReviews = async(id) => { 
+    const result = { statusResponse: true, error: null, reviews: []}
+    try {
+        const response = await db
+        .collection("reviews")
+        .where("idMascota","==",id)
+        .get()
+        response.forEach((doc) => {
+            const review = doc.data()
+            review.id = doc.id
+            result.reviews.push(review)
+        });
+
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result   
+}  

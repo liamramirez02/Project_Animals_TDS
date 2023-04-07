@@ -30,6 +30,7 @@
     "i": "^0.3.7",
     "install": "^0.13.0",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "patch-package": "^6.5.1",
     "random-uuid-v4": "^0.0.9",
     "react": "18.1.0",

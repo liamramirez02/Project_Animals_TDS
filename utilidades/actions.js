@@ -3,7 +3,6 @@ import { firebaseApp } from './firebase'
 import * as firebase from 'firebase'
 import 'firebase/firestore'
 import { fileToBlob } from './helpers'
-import Reviews from './../Componentes/Mascotas/Reviews';
 // other services is needed
 
 const db = firebase.firestore(firebaseApp) //acceso a base de datos
@@ -126,7 +125,7 @@ export const addDocumentWithoutId = async(collection, data) => { //agregar colle
     try {
         await db.collection(collection).add(data)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         result.statusResponse = false
         result.error = error
     }
@@ -189,7 +188,6 @@ export const getDocumentById = async(collection, id) => {
          result.document = response.data()
          result.document.id = response.id
     } catch (error) {
-        console.log(error)
         result.statusResponse = false
         result.error = error
     }
@@ -202,7 +200,6 @@ export const updateDocument = async(collection, id,data) => {
     try {
         await db.collection(collection).doc(id).update()
     } catch (error) {
-        console.log(error)
         result.statusResponse = false
         result.error = error
     }
@@ -228,3 +225,37 @@ export const getMascotasReviews = async(id) => {
     }
     return result   
 }  
+
+
+export const getFavorite = async(idMascota) => { //obtener favoritos
+    const result = { statusResponse: true, error: null, isFavorite: false }
+    try {
+        const response = await db.collection("favoritos")
+        .where("idMascota", "==",idMascota)
+        .where("idUser", "==",getCurrentUser().uid)
+        .get()
+        result.isFavorite = response.docs.length > 0
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}
+
+export const removeFavorites = async(idMascota) => { //eliminar favoritos
+    const result = { statusResponse: true, error: null}
+    try {
+        const response = await db.collection("favoritos")
+        .where("idMascota", "==",idMascota)
+        .where("idUser", "==",getCurrentUser().uid)
+        .get()
+        response.forEach(async(doc) => {
+            const idfav = doc.id
+            await db.collection("favoritos").doc(idfav).delete()
+        })
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}

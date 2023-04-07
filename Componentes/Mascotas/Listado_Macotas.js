@@ -1,6 +1,5 @@
 import { FlatList, StyleSheet, Text, TouchableOpacity, View,ActivityIndicator } from 'react-native'
 import React from 'react'
-import Mascotas from './../../screens/Mascotas/Mascotas';
 import { Image } from 'react-native-elements';
 import { size } from 'lodash';
 import { formatPhone } from './../../utilidades/helpers';

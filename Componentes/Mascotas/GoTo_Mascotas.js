@@ -1,6 +1,5 @@
 import { Alert, Dimensions, StyleSheet, Text, ScrollView, View } from 'react-native'
-import React, {useState, useEffect} from 'react'
-
+import React, {useState, useEffect,useCallback} from 'react'
 import { ViewPropTypes } from 'deprecated-react-native-prop-types'
 
 import { getDocumentById } from '../../utilidades/actions'
@@ -11,6 +10,7 @@ import MapaMascota from './MapaMascota'
 import { map } from 'lodash'
 import { ListItem, Icon } from 'react-native-elements'
 import Reviews from './Reviews'
+import { useFocusEffect } from '@react-navigation/native';
 
 const widthScreen = Dimensions.get("window").width
 
@@ -22,7 +22,8 @@ export default function GoTo_Mascotas({navigation, route}) {
   navigation.setOptions({title: name })
 
   //Ir a los datos de las mascota al momento de seleccionar unas de la publicada
-  useEffect(() => {
+  useFocusEffect(
+  useCallback(() => {
     (async() => {
       const response = await getDocumentById("mascotas", id)
       if(response.statusResponse) {
@@ -33,7 +34,8 @@ export default function GoTo_Mascotas({navigation, route}) {
       }
     })()
   }, [])
-  
+  )
+
   if(!mascota){
     return <Loading isVisible={true} text="Cargando Mascotas!"/>
   }

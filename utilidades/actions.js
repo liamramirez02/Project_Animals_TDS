@@ -132,7 +132,7 @@ export const addDocumentWithoutId = async(collection, data) => { //agregar colle
     return result     
 }
 
-//metodo para obtner los datos de las mascotas
+//metodo para obtener los datos de las mascotas
 export const getMascotas = async(limitMascotas) => { 
     const result = { statusResponse: true, error: null, mascotas: [], startMascota: null }
     try {
@@ -187,6 +187,19 @@ export const getDocumentById = async(collection, id) => {
          const response = await db.collection(collection).doc(id).get()
          result.document = response.data()
          result.document.id = response.id
+    } catch (error) {
+        console.log(error)
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}
+
+//Actualizar documento en cualquier coleccion
+export const updateDocument = async(collection, id,data) => { 
+    const result = { statusResponse: true, error: null}
+    try {
+        await db.collection(collection).doc(id).update()
     } catch (error) {
         console.log(error)
         result.statusResponse = false

@@ -1,14 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React,{ useState, useRef } from 'react'
 import Toast from 'react-native-easy-toast'
-import { Button, Input } from 'react-native-elements'
+import { AirbnbRating, Button, Input } from 'react-native-elements'
 import Loading from './../../Componentes/Loading';
 import { isEmpty } from 'lodash';
+import { getCurrentUser, getDocumentById } from '../../utilidades/actions';
+import { addDocumentWithoutId } from './../../utilidades/actions';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function Add_reviews({navigation, route}) {
 
-  const {idmascota} = route.params
-  
+  const {idMascota} = route.params
+
   const toastRef = useRef()
 
   const [rating, setRating] = useState(null)
@@ -24,36 +27,37 @@ export default function Add_reviews({navigation, route}) {
         return
     }
 
-    // setIsLoading(true)
-    // const user = getCurrentUser()
-    // const data = {
-    //     idUser: user.uid,
-    //     avatarUser: user.photoURL,
-    //     idRestaurant: idRestaurant,
-    //     title: title,
-    //     review: review,
-    //     rating: rating,
-    //     createAt: new Date()
-    // }
-    // const responseAddReview = await addRecordWithOutId("reviews", data)
-    // if (!responseAddReview.statusResponse) {
-    //     setIsLoading(false)
-    //     toastRef.current.show("Error al enviar el comentario, intenta más tarde.", 3000)
-    //     return
-    // }
+    setIsLoading(true)
+    const user = getCurrentUser()
 
-    // const responseGetRestaurant = await getRecordById("restaurants", idRestaurant)
-    // if (!responseGetRestaurant.statusResponse) {
-    //     setIsLoading(false)
-    //     toastRef.current.show("Error al obtener el restaurante, intenta más tarde.", 3000)
-    //     return
-    // }
+    const data = {
+        idUser: user.uid,
+        avatarUser: user.photoURL,
+        idMascota,
+        title,
+        review,
+        createAt: new Date()
+    }
 
-    // const restaurant = responseGetRestaurant.document
-    // const ratingTotal = restaurant.ratingTotal + rating
-    // const quantityVoting = restaurant.quantityVoting + 1
+    const responseAddReview = await addDocumentWithoutId("reviews", data)
+    if (!responseAddReview.statusResponse) {  //si no hubo coleccion
+        setIsLoading(false)
+        toastRef.current.show("Error al enviar el comentario, intenta más tarde.", 3000)
+        return
+    }
+
+    const responseGetMascota = await getDocumentById("mascotas", idMascota)
+    if (!responseGetMascota.statusResponse) {
+        setIsLoading(false)
+        toastRef.current.show("Ha ocurrido un error, intenta más tarde.", 3000)
+        return
+    }
+                                                              //ENVIAR RATING O LIKE DE LA MASCOTA 
+    // const mascota = responseGetRestaurant.document
+    // const ratingTotal = mascota.ratingTotal + rating
+    // const quantityVoting = mascota.quantityVoting + 1
     // const ratingResult = ratingTotal / quantityVoting
-    // const responseUpdateRestaurant = await updateRecord("restaurants", idRestaurant, {
+    // const responseUpdateMascota = await updateRecord("mascotas", idmascota, {
     //     ratingTotal,
     //     quantityVoting,
     //     rating: ratingResult
@@ -61,23 +65,23 @@ export default function Add_reviews({navigation, route}) {
 
     // setIsLoading(false)
     // if (!responseUpdateRestaurant.statusResponse) {
-    //     toastRef.current.show("Error al actualizar el restaurante, intenta más tarde.", 3000)
+    //     toastRef.current.show("Error al actualizar la mascota, intenta más tarde.", 3000)
     //     return
     // }
 
-    // navigation.goBack()
+    navigation.goBack()
 }
 
 const validacionForm = () => {
   setErrorTitle(null)
   setErrorReview(null)
-  
+
   let isValid = true
 
-  if(!rating) {
-      toastRef.current.show("Debes darle una puntuación al restaurante.", 3000)
-      isValid = false
-  }
+  // if(!rating) {
+  //     toastRef.current.show("Debes darle una puntuación al restaurante.", 3000)
+  //     isValid = false
+  // }
 
   if (isEmpty(title)) {
       setErrorTitle("Debes ingresar un titulo a tu puntuación.")
@@ -94,7 +98,7 @@ const validacionForm = () => {
 
 
   return (
-    <View style={styles.viewBody}>
+    <KeyboardAwareScrollView style={styles.viewBody}>
     <View style={styles.formReview}>
     <Input
         placeholder="Título..."
@@ -119,7 +123,7 @@ const validacionForm = () => {
 </View>
 <Toast ref={toastRef} position="center" opacity={0.9}/>
 <Loading isVisible={isLoading} text="Enviando comentario..."/>
-</View>
+</KeyboardAwareScrollView>
   )
 }
 

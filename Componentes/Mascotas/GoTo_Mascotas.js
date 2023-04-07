@@ -10,6 +10,7 @@ import { formatPhone } from '../../utilidades/helpers'
 import MapaMascota from './MapaMascota'
 import { map } from 'lodash'
 import { ListItem, Icon } from 'react-native-elements'
+import Reviews from './Reviews'
 
 const widthScreen = Dimensions.get("window").width
 
@@ -58,6 +59,9 @@ export default function GoTo_Mascotas({navigation, route}) {
         email={mascota.email}
         phone={formatPhone(mascota.phone)}
     />
+    <Reviews
+      navigation={navigation}
+      idMascota={mascota.id}/>
     </ScrollView>
   )
 }

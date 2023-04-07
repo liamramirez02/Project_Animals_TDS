@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Input, Button } from 'react-native-elements'
 import { isEmpty } from 'lodash';
-import { actualizarPerfil } from './../../utilidades/actions';
+import { actualizarPerfil, updateProfile } from './../../utilidades/actions';
 
 export default function Cambiar_nombre_form({displayName, setShowModal, toastRef, setReloadUser}) {
 
@@ -16,7 +16,7 @@ export default function Cambiar_nombre_form({displayName, setShowModal, toastRef
         }
 
         setLoading(true)
-        const resultado = await actualizarPerfil({ displayName: newDisplayName}) //actualiza el nombre
+        const resultado = await updateProfile({ displayName: newDisplayName}) //actualiza el nombre
         setLoading(false)
 
         if (!resultado.statusResponse) { //si no hubo respuesta muestra el error

@@ -21,6 +21,7 @@ export default function Reviews({navigation, idMascota}) {
                 buttonStyle={styles.btncomentario}
                 title={"Escribe un comentario"}
                 titleStyle={styles.btntittlecomentario}
+                onPress={() => navigation.navigate("addreview", {idMascota})}
                 icon={{
                     type: "material-community",
                     name: "square-edit-outline",

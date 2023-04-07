@@ -43,6 +43,7 @@ export default function Add_mascotas_form({toastRef, setLoading, navigation}) {
       description: FData.description,
       phone: FData.phone,
       location: locationMascota,
+      email: FData.email,
       images: responseuploadimage,
       rating: 0,
       ratingTotal: 0,

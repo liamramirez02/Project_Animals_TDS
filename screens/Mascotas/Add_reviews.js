@@ -22,7 +22,7 @@ export default function Add_reviews({navigation, route}) {
   const [isLoading, setIsLoading] = useState(false)
 
   const addReview = async() => {
-    console.log("Si imprime we")
+    // console.log("Si imprime we")
     if (!validacionForm()) {
         return
     }

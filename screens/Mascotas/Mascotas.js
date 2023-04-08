@@ -37,7 +37,7 @@ export default function Mascotas({navigation}) {
   
   const limitMascotas = 7
 
-  console.log("mascotas",mascotas)
+  // console.log("mascotas",mascotas)
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {

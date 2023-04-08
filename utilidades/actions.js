@@ -3,6 +3,7 @@ import { firebaseApp } from './firebase'
 import * as firebase from 'firebase'
 import 'firebase/firestore'
 import { fileToBlob } from './helpers'
+import { map } from 'lodash';
 // other services is needed
 
 const db = firebase.firestore(firebaseApp) //acceso a base de datos
@@ -227,7 +228,7 @@ export const getMascotasReviews = async(id) => {
 }  
 
 
-export const getFavorite = async(idMascota) => { //obtener favoritos
+export const getFavorite = async(idMascota) => { //Metodo obtener favoritos
     const result = { statusResponse: true, error: null, isFavorite: false }
     try {
         const response = await db.collection("favoritos")
@@ -242,7 +243,7 @@ export const getFavorite = async(idMascota) => { //obtener favoritos
     return result     
 }
 
-export const removeFavorites = async(idMascota) => { //eliminar favoritos
+export const removeFavorites = async(idMascota) => { //Metodo eliminar favoritos
     const result = { statusResponse: true, error: null}
     try {
         const response = await db.collection("favoritos")
@@ -258,4 +259,30 @@ export const removeFavorites = async(idMascota) => { //eliminar favoritos
         result.error = error
     }
     return result     
+}
+
+
+//metodo para obtener los favoritos de un usuario
+export const getFavoritelist = async() => 
+{
+    const result = {statusRespons: true, error: null, favorites: []}
+    try {
+        const response = await db
+            .collection("favoritos")
+            .where("idUser", "==", getCurrentUser().uid)
+            .get()
+        await Promise.all(
+            map(response.docs, async(doc) => 
+            {
+                const favorite = doc.data()
+                const res = await getDocumentById("mascotas", favorite.idMascota)
+                result.favorites.push(res.document)
+                
+            })
+        )
+    } catch (error) {
+        result.statusRespons = false
+        result.error = error
+    }
+    return result
 }

@@ -4,9 +4,11 @@ import * as firebase from 'firebase'
 import 'firebase/firestore'
 import { fileToBlob } from './helpers'
 import { map } from 'lodash';
+import {FireSQL} from 'firesql'
 // other services is needed
 
 const db = firebase.firestore(firebaseApp) //acceso a base de datos
+const fireSQL = new FireSQL(firebase.firestore(),{includeId:"id"})
 
 export const isUserLogged = () => {
     let isLogged = false
@@ -265,7 +267,7 @@ export const removeFavorites = async(idMascota) => { //Metodo eliminar favoritos
 //metodo para obtener los favoritos de un usuario
 export const getFavoritelist = async() => 
 {
-    const result = {statusRespons: true, error: null, favorites: []}
+    const result = {statusResponse: true, error: null, favorites: []}
     try {
         const response = await db
             .collection("favoritos")
@@ -281,7 +283,20 @@ export const getFavoritelist = async() =>
             })
         )
     } catch (error) {
-        result.statusRespons = false
+        result.statusResponse = false
+        result.error = error
+    }
+    return result
+}
+
+//Metodo para buscar mascotas
+export const searchMascotas = async(criteria) => 
+{
+    const result = {statusResponse: true, error: null, mascotas: []}
+    try {                                                                               
+        result.mascotas = await fireSQL.query(`SELECT * FROM mascotas WHERE name LIKE '${criteria}%'`)
+    } catch (error) {
+        result.statusResponse = false
         result.error = error
     }
     return result

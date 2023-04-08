@@ -4178,6 +4178,11 @@ core-js@^1.0.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
   integrity sha512-ZiPp9pZlgxpWRu0M+YWbm6+aQ84XEfH1JRXvfOc/fILWI0VKhLC2LX13X1NYq4fULzLMq7Hfh43CSo2/aIaUPA==
 
+core-js@^3.0.1:
+  version "3.30.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.30.0.tgz#64ac6f83bc7a49fd42807327051701d4b1478dea"
+  integrity sha512-hQotSSARoNh1mYPi9O2YaWeiq/cEB95kOrFb4NCrO4RIFt1qqNpKsaE+vy/L3oiqvND5cThqXzUU3r9F7Efztg==
+
 core-util-is@~1.0.0:
   version "1.0.3"
   resolved "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.3.tgz"
@@ -5417,6 +5422,13 @@ firebase@^8.2.3:
     "@firebase/remote-config" "0.1.30"
     "@firebase/storage" "0.4.2"
     "@firebase/util" "0.3.4"
+
+firesql@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/firesql/-/firesql-2.0.2.tgz#0d69130d9ad65a13ad219fabcd9ba2cb9587b668"
+  integrity sha512-3HipSyyJlVTIESHt5OQ0YhCvclm1FV4J2zcPg9I9xpJGjrTn7Gi7tZFniKbgeg1kYS5k5htDvxEQbPfHiHMWBg==
+  dependencies:
+    core-js "^3.0.1"
 
 flow-parser@0.*:
   version "0.199.1"

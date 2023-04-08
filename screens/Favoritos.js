@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Alert, ActivityIndicator} from 'react-native'
 import React, {useState,useCallback,useRef} from 'react'
 import { useFocusEffect } from '@react-navigation/native';
-import { getFavoritelist } from './../utilidades/actions';
+import { getFavoritelist, removeFavorites } from './../utilidades/actions';
 import { Image, Icon, Button } from 'react-native-elements'
 import Toast from 'react-native-easy-toast'
 import Loading from './../Componentes/Loading';
@@ -49,12 +49,103 @@ if (!mascotas) { //si no hay valor, aun siguen cargando las mascotas.  Si no hay
 }
 
   return (
-    <View>
-      <Text></Text>
+    <View style={styles.viewBody}>
+    {
+        mascotas ? ( //si tiene elementos pinta los favoritos
+            <FlatList
+                data={mascotas}
+                renderItem={(mascota) => (
+                <Mascota 
+                    mascota={mascota} 
+                    setLoading={setLoading} 
+                    toastRef={toastRef}
+                    navigation={navigation}
+                    setReloadData={setReloadData}
+                />
+                )}
+                keyExtractor={(item, index) => index.toString()}
+            />
+        ) : (
+            <View style={styles.loaderRestaurant}>
+                <ActivityIndicator size="large"/>
+                <Text style={{ textAlign: "center" }}>
+                  Cargando Mascotas..</Text>
+            </View>
+        )
+    }
       <Toast ref={toastRef} position="center" opacity={0.9}/>
       <Loading text="Eliminando mascota..." isVisible={Loading}/>
     </View>
   )
+}
+
+
+function Mascota({mascota, setLoading, toastRef, navigation, setReloadData }) {
+
+  const { id, name, images } =  mascota.item
+
+  const confirmRemoveFavorite = () => {
+      Alert.alert(
+          "Eliminar mascota de favoritos",
+          "¿Está seguro de que quieres borrar la mascota de favoritos?",
+          [
+              {
+                  text: "No",
+                  style: "cancel"
+              },
+              {
+                  text: "Sí",
+                  onPress: removeFavorite
+              }
+          ],
+          { cancelable: false }
+      )
+  }
+
+  const removeFavorite = async () => {
+    setLoading(true)
+    const response = await removeFavorites(id)
+    if (response.statusResponse) {
+        setReloadData(true)
+        setLoading(false)
+        toastRef.current.show("Mascota eliminada de favoritos.", 3000)
+    } else {
+        setLoading(false)
+        toastRef.current.show("Error al eliminar la Mascota de favoritos.", 3000)
+    }
+}
+
+return(
+    <View style={styles.mascota}>
+        <TouchableOpacity 
+            onPress={() => 
+              navigation.navigate("ir_mascotas", {id, name}
+            )}
+        >
+            <Image
+                resizeMode="cover"
+                style={styles.image}
+                PlaceholderContent={<ActivityIndicator color="#fff"/>}
+                source={
+                    images[0]
+                    ? { uri: images[0] }
+                    : require("../assets/no-image.png")
+                }
+            />
+            <View style={styles.info}>
+                <Text style={styles.name}>{name}</Text>
+                <Icon
+                    type="material-community"
+                    name="heart"
+                    color="#f00"
+                    containerStyle={styles.favorite}
+                    onPress={confirmRemoveFavorite}
+                    underlayColor="transparent"
+                />
+            </View>
+        </TouchableOpacity>
+    </View>
+)
 }
 
 function NotFoundMascotas() {
@@ -83,4 +174,44 @@ function UserNoLogged({navigation}) {
       </View>
   )
 }
-const styles = StyleSheet.create({})
+
+
+const styles = StyleSheet.create({
+  viewBody: {
+    flex: 1,
+    backgroundColor: "#f2f2f2"
+}, 
+loaderRestaurant: {
+    marginTop: 10,
+    marginBottom: 10
+},
+mascota: {
+    margin: 10
+},
+image: {
+    width: "100%",
+    height: 180
+},
+info: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 10,
+    paddingTop: 10,
+    marginTop: -30,
+    backgroundColor: "#fff"
+},
+name: {
+    fontWeight: "bold",
+    fontSize: 20
+},
+favorite: {
+    marginTop: -35,
+    backgroundColor: "#fff",
+    padding: 15,
+    borderRadius: 100
+}
+})

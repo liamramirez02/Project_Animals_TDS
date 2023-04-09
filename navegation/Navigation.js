@@ -15,21 +15,22 @@ export default function Navigation() {
   const screenOptions = (route) => {
       let iconName
       switch (route.name) {
-        case "Cuenta":
-          iconName = "account-circle"
+        case "Mascotas":
+          iconName = "dog"
           break;
         case "Buscar":
           iconName = "magnify"
           break;
+          case "Mapa":
+            iconName = "map"
+            break;
         case "Favoritos":
           iconName = "star"
           break;
-        case "Mascotas":
-          iconName = "dog"
+          case "Cuenta":
+          iconName = "account-circle"
           break;
-        case "Mapa":
-          iconName = "map"
-          break;
+       
 
       }
       return (
@@ -62,29 +63,29 @@ export default function Navigation() {
             })}
         >
             <Tab.Screen
-                name="Cuenta"
-                component={AccountStack}
-                options={{title: "Cuenta" }} 
+                name="Mascotas"
+                component={MascotasStack} 
+                options={{title: "Mascotas" }}
             />
             <Tab.Screen
                 name="Buscar"
                 component={BuscarStack}
                 options={{title: "Buscar" }} 
             />
+             <Tab.Screen
+                name="Mapa"
+                component={MapaStack} 
+                options={{title: "Mapa" }}
+            />
             <Tab.Screen
                 name="Favoritos"
                 component={FavoritosStack} 
                 options={{title: "Favoritos" }}
             />
-            <Tab.Screen
-                name="Mascotas"
-                component={MascotasStack} 
-                options={{title: "Mascotas" }}
-            />
-            <Tab.Screen
-                name="Mapa"
-                component={MapaStack} 
-                options={{title: "Mapa" }}
+           <Tab.Screen
+                name="Cuenta"
+                component={AccountStack}
+                options={{title: "Cuenta" }} 
             />
         </Tab.Navigator>
     </NavigationContainer>

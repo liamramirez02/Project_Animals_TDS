@@ -301,3 +301,56 @@ export const searchMascotas = async(criteria) =>
     }
     return result
 }
+
+  export const getLocations = async (collectionName) => {
+    const querySnapshot = await firebase.firestore().collection(collectionName).get()
+    const locations = [];
+    querySnapshot.forEach((doc) => {
+      const location = doc.data().location;
+      if (location) {
+        locations.push(location)
+      }
+    })
+    return { statusResponse: true, document: locations };
+  };
+
+
+
+
+
+
+
+
+
+  // export const getLocations = async (collection) => {
+//     const result = { statusResponse: true, error: null, documents: [] }
+//     try {
+//       const response = await db.collection(collection).get()
+//       response.forEach((doc) => {
+//         result.documents.push({
+//           id: doc.id,
+//           location: doc.data().location, // asumiendo que la localización se almacena en el campo "location"
+//           // agregar aquí otros campos que desees obtener de la colección
+//         })
+//       })
+//     } catch (error) {
+//       result.statusResponse = false
+//       result.error = error
+//     }
+//     return result
+//   }
+
+// export const getLocations = async (collectionName) => {
+//     const querySnapshot = await firebase.firestore().collection(collectionName).get();
+  
+//     const locations = [];
+  
+//     querySnapshot.forEach((doc) => {
+//       const location = doc.data().location;
+//       if (location) {
+//         locations.push(location);
+//       }
+//     });
+  
+//     return locations;
+//   };

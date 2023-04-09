@@ -7,7 +7,7 @@ import AccountStack from '../navegation/AccountStack'
 import BuscarStack from '../navegation/BuscarStack'
 import FavoritosStack from '../navegation/FavoritosStack'
 import MascotasStack from '../navegation/MascotasStack'
-import TopAnimalsStack from '../navegation/TopAnimalsStack'
+import MapaStack from '../navegation/MapaStack'
 
 const Tab = createBottomTabNavigator()
 
@@ -27,8 +27,8 @@ export default function Navigation() {
         case "Mascotas":
           iconName = "dog"
           break;
-        case "Ranking":
-          iconName = "format-list-numbered"
+        case "Mapa":
+          iconName = "map"
           break;
 
       }
@@ -82,9 +82,9 @@ export default function Navigation() {
                 options={{title: "Mascotas" }}
             />
             <Tab.Screen
-                name="Ranking"
-                component={TopAnimalsStack} 
-                options={{title: "Ranking" }}
+                name="Mapa"
+                component={MapaStack} 
+                options={{title: "Mapa" }}
             />
         </Tab.Navigator>
     </NavigationContainer>

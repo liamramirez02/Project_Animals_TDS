@@ -2,6 +2,7 @@ import React from 'react'
 import  MapView  from 'react-native-maps';
 import  openMap   from 'react-native-open-maps';
 import { Marker } from 'react-native-maps';
+import { StyleSheet, Text, View } from 'react-native'
 
 
 export default function MapaMascota({ location, name, height }) {
@@ -29,3 +30,5 @@ export default function MapaMascota({ location, name, height }) {
      </MapView>
   )
 }
+
+const styles = StyleSheet.create({})

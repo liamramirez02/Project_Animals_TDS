@@ -124,7 +124,9 @@ btnContainer:{
     alignSelf: "center"
 },
 btn:{
-    backgroundColor:"gray"
+    backgroundColor:"gray",
+    borderRadius: 20
+
 },
 icon:{
     color: "#c1c1c1"

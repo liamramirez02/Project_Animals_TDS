@@ -8,7 +8,7 @@ import { openGalleryAndSaveImage, Cameras } from './../../utilidades/helpers';
 import MapView from "react-native-maps"
 import { Marker } from 'react-native-maps';
 import uuid from 'random-uuid-v4';
-
+ 
 import Modal from '../Modal'
 import { getCurrentUser, uploadImage } from '../../utilidades/actions';
 import { addDocumentWithoutId } from './../../utilidades/actions';
@@ -41,7 +41,7 @@ export default function Add_mascotas_form({toastRef, setLoading, navigation}) {
       name: FData.name,
       address: FData.address,
       description: FData.description,
-      phone: FData.phone,
+      phone: `${FData.callingCode}${FData.phone}`,
       location: locationMascota,
       email: FData.email,
       images: responseuploadimage,
@@ -274,9 +274,9 @@ function Form_add({
   errorEmail,
   locationMascota,
   setIsVisibleMap}){
-  const [country, setCountry] = useState("DO")
-  const [callingCode, setCallingcode] = useState("1")
-  const [phone, setphone] = useState("")
+  // const [country, setCountry] = useState("DO")
+  // const [callingCode, setCallingcode] = useState("1")
+  // const [phone, setphone] = useState("")
 
   const onChange = (e, type) => {
     setFData({...FData, [type]: e.nativeEvent.text })
@@ -318,9 +318,9 @@ function Form_add({
           withFilter
           withCallingCodeButton
           containerStyle={styles.countryPicker}
-          countryCode={country}
+          countryCode={FData.country}
           onSelect={(country) => {
-          setFData = ({...FData, "country":country.cca2, "callingCode": country.callingCode[0]}) //-------------ACA HAY ERROR-------------
+          setFData({...FData, "country":country.cca2, "callingCode": country.callingCode[0]}) //-------------ACA HAY ERROR-------------
             // setCountry(country.cca2) //cca2: es el codigo internacional del pais de dos caracteres
             // setCallingcode(country.callingCode[0]) //arreglo de los codigos internacionales
           }}

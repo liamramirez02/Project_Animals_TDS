@@ -158,5 +158,5 @@ export const fileToBlob = async(path) => {
 
   //metodo para dejar espacio entre los numeros del telefono
   export const formatPhone = (phone) => {
-    return `+${phone.substr(0, 2)} ${phone.substr(2, 3)} ${phone.substr(5, 3)} ${phone.substr(8, 4)}`
+    return `+${phone.substr(0, 4)} ${phone.substr(3, 3)} ${phone.substr(6, 4)}`
   }

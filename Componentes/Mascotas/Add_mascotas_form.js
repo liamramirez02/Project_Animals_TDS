@@ -293,7 +293,7 @@ function Form_add({
         errorMessage={errorName}
       />
        <Input
-        placeholder="Introduzca su locacización actual"
+        placeholder="Introduzca su localización actual"
         defaultValue={FData.address}
         onChange={(e) => onChange(e, "address")}
         errorMessage={errorDireccion}

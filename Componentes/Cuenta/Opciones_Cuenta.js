@@ -130,7 +130,7 @@ export default function Opciones_Cuenta({user, toastRef, setReloadUser}) {
 
 const styles = StyleSheet.create({
     menuItem: {
-        borderBottomWidth: 1,
-        borderBottomColor: "#a7bfd3",
+        borderBottomWidth: 2,
+        borderBottomColor: "#21000f",
     },
 })

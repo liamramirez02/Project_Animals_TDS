@@ -98,7 +98,7 @@ const onChange = (e, type) => {
       buttonStyle={styles.btn}
       onPress={dLogin}
       />
-        <Loading isVisible={loading} text="Iniciando Sesions"/>
+        <Loading isVisible={loading} text="Iniciando Sesion"/>
 
     </View>
   )
@@ -119,16 +119,17 @@ const styles = StyleSheet.create({
     width: "100%"
 },
 btnContainer:{
-    marginTop: 20,
+    marginTop: -1,
     width: "90%",
-    alignSelf: "center"
+    alignSelf: "center",
+    textAlign: "center"
 },
 btn:{
-    backgroundColor:"gray",
+    backgroundColor:"#21000f",
     borderRadius: 20
 
 },
 icon:{
-    color: "#c1c1c1"
+    color: "#21000f"
 }
 })

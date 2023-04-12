@@ -47,8 +47,10 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 150,
-    width:"100%",
-    marginBottom: 40,
+    width:"95%",
+    marginHorizontal:10,
+    marginTop: 65,
+    marginBottom: 10,
     textAlign: "center"
   },
   divider:{

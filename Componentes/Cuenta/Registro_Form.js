@@ -149,12 +149,13 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     btnContainer:{
-        marginTop: 20,
+        marginTop: 10,
         width: "90%",
         alignSelf: "center"
     },
     btn:{
-        backgroundColor:"gray"
+        backgroundColor:"#21000f",
+        borderRadius: 20
     },
     icon:{
         color: "#c1c1c1"

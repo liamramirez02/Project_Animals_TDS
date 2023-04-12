@@ -59,16 +59,16 @@ const styles = StyleSheet.create({
     backgroundColor: "black"
   },
   btncerrar:{
-    marginTop: 30,
+    marginTop: 20,
     borderRadius: 5,
     backgroundColor: "white",
     borderTopWidth: 1,
-    borderTopColor: "#442484",
+    borderTopColor: "#21000f",
     borderBottomWidth: 1,
-    borderBottomColor: "#442484",
+    borderBottomColor: "#21000f",
     paddingVertical: 10
   },
   btncerrarTitle:{
-    color:"#442484"
+    color:"#21000f"
   }
 })

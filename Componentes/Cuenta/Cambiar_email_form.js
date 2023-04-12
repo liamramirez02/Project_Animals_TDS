@@ -112,12 +112,13 @@ const styles = StyleSheet.create({
         paddingVertical: 10
     },
     input: {
-        marginBottom: 10
+        marginBottom: 5
     },
     btnContainer: {
         width: "95%"
     },
     btn: {
-        backgroundColor: "#442484"
+        backgroundColor: "#21000f",
+        borderRadius:10,
     }
 })

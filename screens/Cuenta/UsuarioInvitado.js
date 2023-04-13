@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   botonContainer: {
     position: 'absolute',
     top: 0,
-    bottom: -750,
+    bottom: -650,
     left: 0,
     right: 0,
     justifyContent: 'center',

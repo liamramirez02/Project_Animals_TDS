@@ -386,6 +386,7 @@ function Map_Mascostas({isVisibleMap,setIsVisibleMap,setLocationMascota,toastRef
                                     latitude: newRegion.latitude,
                                     longitude: newRegion.longitude,
                                 }}
+                                icon={require('../../assets/marker3.png')}
                                 draggable
                             /> 
                         </MapView>

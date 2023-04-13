@@ -98,7 +98,7 @@ export default function Cambiar_email_form({email, setShowModal, toastRef, setRe
     <Button
         title="Cambiar Email"
         containerStyle={styles.btnContainer}
-        buttonStyle={styles.btn}
+        buttonStyle={{ ...styles.btn, backgroundColor: "green" }}
         onPress={onSubmit}
         loading={loading}
     />
@@ -109,14 +109,19 @@ export default function Cambiar_email_form({email, setShowModal, toastRef, setRe
 const styles = StyleSheet.create({
     view: {
         alignItems: "center",
-        paddingVertical: 10
-    },
-    input: {
-        marginBottom: 10
-    },
-    btnContainer: {
-        width: "95%"
-    },
+        paddingVertical: 10,
+      },
+      input: {
+        width: "90%",
+        marginBottom: 10,
+      },
+      icon: {
+        color: "#c2c2c2",
+      },
+      btnContainer: {
+        width: "90%",
+        marginTop: 20,
+      },
     btn: {
         backgroundColor: "#442484"
     }

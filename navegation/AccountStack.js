@@ -15,16 +15,17 @@ export default function AccountStack() {
             name="C2"
             component={Account}
             options={{ title: "Cuenta", headerShown: false }}
+            
         />
           <Stack.Screen
             name="login"
             component={Login}
-            options={{ title: "Iniciar Sesion"}}
-        />
+            options={{ headerShown: false }}  />
+            
             <Stack.Screen
             name="registro"
             component={Registro}
-            options={{ title: "Registro de Usuario"}}
+            options={{ headerShown: false }}
         />
     </Stack.Navigator>
   )

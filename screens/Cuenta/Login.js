@@ -10,47 +10,48 @@ export default function Login() {
 
   return (
     <KeyboardAwareScrollView>
-          <Image
+          {/* <Image
               source={require("../../assets/logo_v2.jpg")}
               resizeMode="contain"
               style={styles.image}
-          />  
-          <View style={styles.container}>
+          />   */}
+          <View>
             <Login_Form/>
-            <Crearcuenta/>
+            {/* <Crearcuenta/> */}
+            {/* <Divider style={styles.divider}/> */}
+
           </View>
-          <Divider style={styles.divider}/>
     </KeyboardAwareScrollView>
   )
 }
 
-function Crearcuenta(props) {
-  const navigation = useNavigation() //navegar a otra pantalla
+// function Crearcuenta(props) {
+//   const navigation = useNavigation() //navegar a otra pantalla
 
-  return (
-    <Text
-    style={styles.registro} 
-    onPress={() => navigation.navigate("registro")} //navegacion hacia registro
->
-    Aun no tienes cuenta? {" "} 
-    <Text style={styles.bton_registro}>
-      Registrate
-    </Text>
-    </Text>
-  )
-  }
+//   return (
+//     <Text
+//     style={styles.registro} 
+//     onPress={() => navigation.navigate("registro")} //navegacion hacia registro
+// >
+//     Aun no tienes cuenta? {" "} 
+//     <Text style={styles.bton_registro}>
+//       Registrate
+//     </Text>
+//     </Text>
+//   )
+//   }
 
 
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 40
-  },
-  image: {
-    height: 150,
-    width:"100%",
-    marginBottom: 40,
-    textAlign: "center"
-  },
+  // container: {
+  //   // marginHorizontal: 40
+  // },
+  // image: {
+  //   height: 150,
+  //   width:"100%",
+  //   marginBottom: 40,
+  //   textAlign: "center"
+  // },
   divider:{
     backgroundColor: "#646464",
     margin: 40

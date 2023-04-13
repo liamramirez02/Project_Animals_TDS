@@ -62,7 +62,7 @@ export default function Cambiar_nombre_form({displayName, setShowModal, toastRef
     <Button
         title="Cambiar Nombres y Apellidos"
         containerStyle={styles.btnContainer}
-        buttonStyle={styles.btn}
+        buttonStyle={{ ...styles.btn, backgroundColor: "green" }}
         onPress={onSubmit}
         loading={loading}
     />
@@ -73,14 +73,19 @@ export default function Cambiar_nombre_form({displayName, setShowModal, toastRef
 const styles = StyleSheet.create({
     view: {
         alignItems: "center",
-        paddingVertical: 10
-    },
-    input: {
-        marginBottom: 10
-    },
-    btnContainer: {
-        width: "95%"
-    },
+        paddingVertical: 10,
+      },
+      input: {
+        width: "90%",
+        marginBottom: 10,
+      },
+      icon: {
+        color: "#c2c2c2",
+      },
+      btnContainer: {
+        width: "90%",
+        marginTop: 20,
+      },
     btn: {
         backgroundColor: "#442484"
     }

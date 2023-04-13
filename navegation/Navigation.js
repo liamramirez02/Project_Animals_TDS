@@ -70,22 +70,22 @@ export default function Navigation() {
             <Tab.Screen
                 name="Buscar"
                 component={BuscarStack}
-                options={{title: "Buscar" }} 
+                options={{ headerShown: false }}  
             />
              <Tab.Screen
                 name="Mapa"
                 component={MapaStack} 
-                options={{title: "Mapa" }}
+                options={{ headerShown: false }}  
             />
             <Tab.Screen
                 name="Favoritos"
                 component={FavoritosStack} 
-                options={{title: "Favoritos" }}
+                options={{ headerShown: false }}  
             />
            <Tab.Screen
                 name="Cuenta"
                 component={AccountStack}
-                options={{title: "Cuenta" }} 
+                options={{ headerShown: false }}  
             />
         </Tab.Navigator>
     </NavigationContainer>

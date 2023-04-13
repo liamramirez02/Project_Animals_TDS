@@ -26,6 +26,7 @@ export default function MapaMascota({ location, name, height }) {
                 latitude: location.latitude,
                 longitude: location.longitude
             }}
+            icon={require('../../assets/marker3.png')}
         />
      </MapView>
   )

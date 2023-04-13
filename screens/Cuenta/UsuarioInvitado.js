@@ -1,66 +1,100 @@
-import { StyleSheet, Text, View, Image, Button } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import React from 'react'
+import { Button } from 'react-native-elements'
 import Loading from '../../Componentes/Loading'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import Login from './Login';
 
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
 export default function UsuarioInvitado() {
   const navigation = useNavigation() //navegar a otra pantalla
 
   return (
-    <ScrollView
-    centerContent
-    style={styles.viewBody}
-    >
-          <Image
-              source={require("../../assets/logo_v2.jpg")}
-              resizeMode="contain"
-              style={styles.image}
-          />  
-          <Text style={styles.titulo}> 
+    <View style={styles.container}>
+      <Image
+        source={require("../../assets/Welcome_image.jpg")}
+        resizeMode="cover"
+        style={styles.image}
+      />
+      <View style={styles.overlay}>
+        <Text style={styles.titulo}> 
           Bienvenido a PetSafe 
-          </Text>
-          <Text style={styles.descripcion}>
-            En esta aplicación podras brindar ayuda a las mascotas perdidas
-            desde tu casa, donde podras visualizar su información, reportar
-            los casos,entre otras cosas.
-          </Text>
-          <Button
-            buttonStyle={styles.boton}
-            title="Ver Perfil"
-            onPress={() => navigation.navigate("login")} //navegacion hacia login
-          />
-    </ScrollView>
-  )
+        </Text>
+        <Text style={styles.descripcion}>
+        Encuentra tu compañero perfecto a través de la adopción, apoya a los rescatistas locales 
+        y realiza donaciones para mejorar la vida de los animales en necesidad. 
+        ¡Únete a nuestra comunidad de amantes de los animales y ayuda a hacer la diferencia!
+        </Text>
+        
+      </View>
+      <View style={styles.botonContainer}>
+        <Button
+          buttonStyle={styles.boton}
+          title="COMENZAR"
+          onPress={() => navigation.navigate("login")} //navegacion hacia login
+        />
+        </View>
+    </View>
+    
+  );
 }
 
 //<Loading isVisible = {true} text="Cargando..."/>
 
 //Diseño del Apartado de Inicio
 const styles = StyleSheet.create({
-  viewBody: {
-    marginHorizontal: 30
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   image: {
-    height: 450,
-    width:"105%",
-    marginBottom: -170,
-    textAlign: "center"
+    width: screenWidth,
+    height: screenHeight,
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   titulo: {
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 40,
     marginVertical: 20,
-    textAlign: "center"
+    textAlign: "center",
+    color: '#fff',
   },
   descripcion: {
-    color: "#646464",
-    textAlign: "justify",
+    color: "#fff",
+    textAlign: "center",
     fontSize: 15,
     marginBottom: 20,
   },
+  botonContainer: {
+    position: 'absolute',
+    top: 0,
+    bottom: -750,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   boton: {
-    backgroundColor: "#646464"
-  }
-})
+    backgroundColor: '#0aabba',
+    borderRadius: 10,
+    paddingHorizontal: 40,
+    paddingVertical: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
+  },
+});

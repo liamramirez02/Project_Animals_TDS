@@ -46,6 +46,7 @@ export default function User_logged() {
           CloseSession()
           navigation.navigate("Mascotas")
         }}
+        containerStyle={styles.buttonContainer}
       />
       <Toast ref={toastRef} position="center" opacity={0.9}/>
       <Loading isVisible={loading} text={loadingText}/>
@@ -54,21 +55,32 @@ export default function User_logged() {
 }
 
 const styles = StyleSheet.create({
-  container:{
-    minHeight:"100%",
-    backgroundColor: "black"
+  container: {
+    minHeight: "100%",
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  btncerrar:{
-    marginTop: 30,
-    borderRadius: 5,
-    backgroundColor: "white",
-    borderTopWidth: 1,
-    borderTopColor: "#442484",
-    borderBottomWidth: 1,
-    borderBottomColor: "#442484",
-    paddingVertical: 10
+  btncerrar: {
+    borderRadius: 30,
+    backgroundColor: "#B81125",
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    elevation: 5,
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: "#000",
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    width: 200,
+
   },
-  btncerrarTitle:{
-    color:"#442484"
-  }
-})
+  btncerrarTitle: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  buttonContainer: {
+    marginTop: 250,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

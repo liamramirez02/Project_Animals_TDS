@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,Alert } from 'react-native'
+import { StyleSheet, Text, View,Alert,Image } from 'react-native'
 import React, {useState, useEffect,useCallback,useRef} from 'react'
 import  MapView  from 'react-native-maps';
 import  openMap   from 'react-native-open-maps';
@@ -51,7 +51,10 @@ export default function Mapa() {
         }}
           title={mascota.nombre}
           description={mascota.descripcion}
-        />
+          icon={require('../assets/marker3.png')}
+        >
+        {/* <Image source={require('../assets/marker.png')} style={{height: 50, width:40 }} /> */}
+      </Marker>
       ))}
     </MapView>
   );

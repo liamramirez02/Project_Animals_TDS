@@ -12,6 +12,7 @@ import uuid from 'random-uuid-v4';
 import Modal from '../Modal'
 import { getCurrentUser, uploadImage } from '../../utilidades/actions';
 import { addDocumentWithoutId } from './../../utilidades/actions';
+import { BorderlessButton } from 'react-native-gesture-handler';
 
 const widthScreen = Dimensions.get("window").width; //para obtener las dimensiones de la pantalla
 
@@ -286,13 +287,13 @@ function Form_add({
   return(
     <View style={styles.form_view}>
       <Input
-        placeholder="Nombre de la mascota"
+        placeholder="Introduzca el nombre de la mascota"
         defaultValue={FData.name}
         onChange={(e) => onChange(e, "name")} 
         errorMessage={errorName}
       />
        <Input
-        placeholder="Direccion en donde se encuentra la mascota"
+        placeholder="Introduzca su localización actual"
         defaultValue={FData.address}
         onChange={(e) => onChange(e, "address")}
         errorMessage={errorDireccion}
@@ -304,7 +305,7 @@ function Form_add({
         }}
       />
        <Input
-        placeholder="Email del Contacto"
+        placeholder="Introduzca su Correo Electronico"
         keyboardType="email-address"
         defaultValue={FData.email}
         onChange={(e) => onChange(e, "email")}
@@ -327,7 +328,7 @@ function Form_add({
         />
 
         <Input
-        placeholder="WhatsApp del Contacto"
+        placeholder="Introduzca su Número"
         keyboardType="phone-pad"
         containerStyle={styles.inputWhatsApp}
         defaultValue={FData.phone}
@@ -336,7 +337,7 @@ function Form_add({
       />
       </View>
       <Input
-        placeholder="Descripcion de la Situacion"
+        placeholder="Describa la situación"
         multiline
         containerStyle={styles.textarea}
         defaultValue={FData.description}
@@ -433,26 +434,27 @@ form_view: {
     marginHorizontal: 10,
 },
 textarea: {
-    height: 100,
+    height: 70,
     width: "100%",
 },
 view_phone: {
   width:"80%",
   flexDirection:"row",
+  marginStart:20
 },
 inputWhatsApp:{
   width:"80%"
-
 },
 btnmascotas: {
-   margin: 50,
-   backgroundColor: "#442484"
+   margin: 40,
+   backgroundColor: "#21000f",
+   borderRadius: 15
 },
 imagenes: {
   flexDirection: "row",
   marginHorizontal: 25,
-  marginTop: 30,
-  height: 150,
+  marginTop: 20,
+  height: 80,
 },
 containerIcon: {
   alignItems: "center",

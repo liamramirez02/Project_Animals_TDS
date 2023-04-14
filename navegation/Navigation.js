@@ -65,7 +65,8 @@ export default function Navigation() {
             <Tab.Screen
                 name="Mascotas"
                 component={MascotasStack} 
-                options={{title: "Mascotas" }}
+                // options={{title: "Mascotas" }}
+                options={{ headerShown: false }}  
             />
             <Tab.Screen
                 name="Buscar"

@@ -15,7 +15,7 @@ export default function UsuarioInvitado() {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../../assets/welcome_pet2.jpg")}
+        source={require("../../assets/login.jpg")}
         resizeMode="cover"
         style={styles.image}
       />
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     textAlign: "center",
     color: '#fff',
-    marginTop: -70,
+    marginTop: -60,
   },
   descripcion: {
     color: "#fff",
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   botonContainer: {
     position: 'absolute',
     top: 0,
-    bottom: -650,
+    bottom: -670,
     left: 0,
     right: 0,
     justifyContent: 'center',
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 3,
     backgroundColor: 'rgba(26, 76, 109, 0.7)',
-    marginTop: 100,
+    marginTop: 160,
   },
   descripcion: {
     color: 'white',

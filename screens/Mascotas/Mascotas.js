@@ -136,7 +136,7 @@ return (
        <Icon
         type="material-community"
         name="plus"
-        color = "#442484"
+        color = "#318CE7"
         reverse
         containerStyle={styles.btnContainer}
         onPress={() => navigation.navigate("addmascotas")}

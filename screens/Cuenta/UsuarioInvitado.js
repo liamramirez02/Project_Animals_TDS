@@ -15,20 +15,23 @@ export default function UsuarioInvitado() {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../../assets/Welcome_image.jpg")}
+        source={require("../../assets/welcome_pet2.jpg")}
         resizeMode="cover"
         style={styles.image}
       />
       <View style={styles.overlay}>
-        <Text style={styles.titulo}> 
-          Bienvenido a PetSafe 
-        </Text>
-        <Text style={styles.descripcion}>
-        Encuentra tu compañero perfecto a través de la adopción, apoya a los rescatistas locales 
-        y realiza donaciones para mejorar la vida de los animales en necesidad. 
-        ¡Únete a nuestra comunidad de amantes de los animales y ayuda a hacer la diferencia!
-        </Text>
-        
+      <Text style={styles.titulo}> 
+  <Text style={{ fontWeight: "bold", textShadowColor: "#000", textShadowOffset: { width: 2, height: 2 }, textShadowRadius: 5 }}>Bienvenido a PetSafe </Text>
+</Text>
+<View style={styles.descripcionContainer}>
+<Text style={styles.descripcion}>
+  <Text style={{ textShadowColor: "#000", textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 5 }}>Encuentra tu compañero perfecto a través de la adopción, </Text>
+  <Text style={{ textShadowColor: "#000", textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 5 }}>apoya a los rescatistas locales y realiza donaciones para </Text>
+  <Text style={{ textShadowColor: "#000", textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 5 }}>mejorar la vida de los animales en necesidad.</Text> 
+  <Text style={{ textShadowColor: "#000", textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 5 }}>¡Únete a nuestra comunidad de amantes de los animales y ayuda a hacer la diferencia!</Text>
+</Text>
+</View>
+
       </View>
       <View style={styles.botonContainer}>
         <Button
@@ -71,12 +74,15 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     textAlign: "center",
     color: '#fff',
+    marginTop: -70,
   },
   descripcion: {
     color: "#fff",
     textAlign: "center",
     fontSize: 15,
     marginBottom: 20,
+    marginTop: 100,
+
   },
   botonContainer: {
     position: 'absolute',
@@ -96,5 +102,24 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.4,
     shadowRadius: 2,
+  },
+  descripcionContainer: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    marginHorizontal: 20,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
+    elevation: 3,
+    backgroundColor: 'rgba(26, 76, 109, 0.7)',
+    marginTop: 100,
+  },
+  descripcion: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 15,
   },
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,  Dimensions,Image} from 'react-native'
 import React,{ useState, useRef } from 'react'
 import Toast from 'react-native-easy-toast'
 import { AirbnbRating, Button, Input } from 'react-native-elements'
@@ -7,6 +7,9 @@ import { isEmpty } from 'lodash';
 import { getCurrentUser, getDocumentById } from '../../utilidades/actions';
 import { addDocumentWithoutId } from './../../utilidades/actions';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 export default function Add_reviews({navigation, route}) {
 
@@ -84,12 +87,12 @@ const validacionForm = () => {
   // }
 
   if (isEmpty(title)) {
-      setErrorTitle("Debes ingresar un titulo a tu puntuación.")
+      setErrorTitle("Debes ingresar un titulo.")
       isValid = false
   }
 
   if (isEmpty(review)) {
-      setErrorReview("Debes ingresar una descripción a tu puntuación.")
+      setErrorReview("Debes ingresar una descripción.")
       isValid = false
   }
 
@@ -99,18 +102,27 @@ const validacionForm = () => {
 
   return (
     <KeyboardAwareScrollView style={styles.viewBody}>
+      <View style={styles.backgroundImageContainer}>
+        <Image
+          source={require("../../assets/descarga.jpg")}
+          resizeMode="cover"
+          style={styles.backgroundImage}
+        />
+        <View style={styles.overlay} />
+      </View>
     <View style={styles.formReview}>
     <Input
+        style={[styles.inputField]}
         placeholder="Título..."
         containerStyle={styles.input}
         onChange={(e) => setTitle(e.nativeEvent.text)}
         errorMessage={errorTitle}
     />
     <Input
+        style={[styles.inputField]}
         placeholder="Comentario..."
         containerStyle={styles.input}
         multiline={true}
-        style={styles.textArea}
         onChange={(e) => setReview(e.nativeEvent.text)}
         errorMessage={errorReview}
     />
@@ -133,13 +145,26 @@ const styles = StyleSheet.create({
     flex: 1
 },
 formReview: {
-  flex: 1,
-  alignItems: "center",
-  margin: 10,
-  marginTop: 40
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
 },
 input: {
-  marginBottom: 10
+  marginBottom: -90
+},
+inputField: {
+  backgroundColor: '#ffffff',
+  borderWidth: 2,
+  borderColor: '#0aabba',
+  borderRadius: 5,
+  padding: 15,
+  marginTop: 120,
+  
 },
 textArea: {
   height: 150,
@@ -152,9 +177,30 @@ btnContainer: {
   justifyContent: "flex-end",
   marginTop: 20,
   marginBottom: 10,
-  width: "95%"
+  width: "95%",
+  width: "80%",
 },
 btn: {
-  backgroundColor: "#442484"
-}
+  borderRadius: 15,
+  backgroundColor: "#0aabba",
+  marginBottom: 280,
+},
+backgroundImage: {
+  width: screenWidth,
+  height: screenHeight,
+},
+  content: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 0,
+  borderRadius: 10,
+},
+overlay: {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  opacity: 0.5,
+},
 })

@@ -109,7 +109,7 @@ export default function Registro_Form() {
       <View style={styles.bottomView}>
         {/* WELCOME VIEW */}
         <View style={{ padding: 40 }}>
-          <Text style={{ color: "#4632A1", fontSize: 34 }}>Sign Up</Text>
+          <Text style={{ color: "orange", fontSize: 34,fontWeight: 'bold' }}>Sign Up</Text>
           <View style={styles.container}>
             <Input //Email
               containerStyle={styles.input}
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     backgroundColor: "#f2f2f2",
     borderWidth: 1,
-    borderColor: "blue",
+    borderColor: "#0aabba",
     marginBottom: 25, // Agregar un margen inferior de 10 puntos
   },
   btnContainer: {
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   btn: {
-    backgroundColor: "blue",
+    backgroundColor: "#0aabba",
     borderRadius: 15,
   },
   icon: {

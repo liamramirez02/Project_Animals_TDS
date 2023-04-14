@@ -76,7 +76,7 @@ export default function Login_Form() {
     >
       <View style={styles.backgroundImageContainer}>
         <Image
-          source={require("../../assets/login.jpg")}
+          source={require("../../assets/welcome_pet2.jpg")}
           resizeMode="cover"
           style={styles.backgroundImage}
         />
@@ -85,7 +85,7 @@ export default function Login_Form() {
       <View style={styles.bottomView}>
         {/* WELCOME VIEW */}
         <View style={{ padding: 40 }}>
-          <Text style={{ color: "#4632A1", fontSize: 34 }}>Login</Text>
+          <Text style={{ color: "orange", fontSize: 34,fontWeight: 'bold' }}>Login</Text>
 
           {/* form inputs views */}
           <View style={styles.container}>
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     backgroundColor: "#f2f2f2",
     borderWidth: 1,
-    borderColor: "blue",
+    borderColor: "#0aabba",
     marginBottom: 25, // Agregar un margen inferior de 10 puntos
   },
   btnContainer: {
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   btn: {
-    backgroundColor: "blue",
+    backgroundColor: "#0aabba",
     borderRadius: 15,
   },
   icon: {
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flex: 1.5,
     backgroundColor: "white",
-    bottom:30,
+    bottom:20,
     borderTopStartRadius: 60,
     borderTopEndRadius: 60,
     borderBottomLeftRadius: 60,

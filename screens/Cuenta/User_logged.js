@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,  TouchableOpacity} from 'react-native'
 import React, {useState, useRef,useEffect} from 'react'
 import { Button } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   buttonContainer: {
-    marginTop: 250,
+    marginTop: 160,
     justifyContent: 'center',
     alignItems: 'center',
   },

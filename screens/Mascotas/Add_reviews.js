@@ -155,7 +155,7 @@ formReview: {
     alignItems: 'center',
 },
 input: {
-  marginBottom: -90
+  marginBottom: -60
 },
 inputField: {
   backgroundColor: '#ffffff',

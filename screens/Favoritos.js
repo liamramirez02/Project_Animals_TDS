@@ -60,6 +60,15 @@ export default function Favoritos({ navigation }) {
   }
 
   return (
+    <View>
+    <View style={styles.backgroundImageContainer}>
+    <Image
+      source={require("../assets/blackcat.jpg")}
+      resizeMode="cover"
+      style={styles.backgroundImage}
+    />
+    <View style={styles.overlay} />
+  </View>
     <View style={styles.viewBody}>
       {mascotas ? ( //si tiene elementos pinta los favoritos
         <FlatList
@@ -83,6 +92,7 @@ export default function Favoritos({ navigation }) {
       )}
       <Toast ref={toastRef} position="center" opacity={0.9} />
       <Loading text="Eliminando mascota..." isVisible={Loading} />
+    </View>
     </View>
   );
 }
@@ -171,7 +181,7 @@ function UserNoLogged({ navigation }) {
       <Button
         title="Ir al Login"
         containerStyle={{ marginTop: 20, width: "80%" }}
-        buttonStyle={{ backgroundColor: "#442484" }}
+        buttonStyle={{ backgroundColor: "#0aabba" }}
         onPress={() => navigation.navigate("C2", { screen: "login" })}
       />
     </View>
@@ -180,8 +190,12 @@ function UserNoLogged({ navigation }) {
 
 const styles = StyleSheet.create({
   viewBody: {
-    flex: 1,
-    backgroundColor: "#f2f2f2",
+    position: "absolute",
+    top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
   },
   loaderRestaurant: {
     marginTop: 10,
@@ -220,9 +234,9 @@ const styles = StyleSheet.create({
     width: screenWidth,
     height: screenHeight,
   },
-  content: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    padding: 0,
+    content: {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      padding: 0,
     borderRadius: 10,
   },
   overlay: {

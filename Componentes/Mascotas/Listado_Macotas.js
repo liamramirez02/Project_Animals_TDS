@@ -5,11 +5,16 @@ import {
   TouchableOpacity,
   View,
   ActivityIndicator,
+  Dimensions,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import { Image } from "react-native-elements";
 import { size } from "lodash";
 import { formatPhone } from "./../../utilidades/helpers";
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 export default function Listado_Macotas({
   mascotas,
@@ -17,18 +22,19 @@ export default function Listado_Macotas({
   handleLoadMore,
 }) {
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={mascotas}
-        renderItem={(
-          mascota //por cada mascota renderiza una lista
-        ) => <Mascota mascota={mascota} navigation={navigation} />}
-        keyExtractor={(item, index) => index.toString()} //cada elemento dentro del FlatList es unico
-        onEndReachedThreshold={0.5} //limite para llegar al fondo
+        renderItem={(mascota) => (
+          <Mascota mascota={mascota} navigation={navigation} />
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        onEndReachedThreshold={0.5}
         onEndReached={handleLoadMore}
+        style={styles.flatlist}
       />
     </View>
-  );
+  )
 }
 
 //Funcion para ver y mostrar la informacion de todas las mascotas publicadas en dicho apartado
@@ -43,8 +49,8 @@ function Mascota({ mascota, navigation, handleLoadMore }) {
 
   return (
     <TouchableOpacity onPress={() => goMascotas()}>
-      <View style={styles.vMascota}>
-        <View style={styles.vImagenMascota}>
+      <View style={styles.mascotaContainer}>
+        <View style={styles.mascotaImageContainer}>
           <Image
             resizeMode="cover"
             PlaceholderContent={<ActivityIndicator color="#0000ff" />}
@@ -53,14 +59,14 @@ function Mascota({ mascota, navigation, handleLoadMore }) {
                 ? { uri: imageMascota }
                 : require("../../assets/no-image.png")
             }
-            style={styles.imagenesmascotas}
+            style={styles.mascotaImage}
           />
         </View>
-        <View>
-          <Text style={styles.nombremascota}>{name}</Text>
-          <Text style={styles.direccionmascota}>{address}</Text>
-          <Text style={styles.direccionmascota}>{formatPhone(phone)}</Text>
-          <Text style={styles.descripcionanimal}>
+        <View style={styles.mascotaInfoContainer}>
+          <Text style={styles.mascotaName}>{name}</Text>
+          <Text style={styles.mascotaAddress}>{address}</Text>
+          <Text style={styles.mascotaPhone}>{formatPhone(phone)}</Text>
+          <Text style={styles.mascotaDescription}>
             {size(description) > 0
               ? `${description.substr(0, 60)}...`
               : description}
@@ -72,33 +78,61 @@ function Mascota({ mascota, navigation, handleLoadMore }) {
 }
 
 const styles = StyleSheet.create({
-  vMascota: {
-    backgroundColor: '#f2f2f2',
-    borderRadius: 16,
-    flexDirection: 'row',
-    marginBottom: 12,
-    overflow: 'hidden',
-    shadowColor: '#000',
+  mascotaContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    marginHorizontal: 20,
+    marginBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 16,
+    shadowRadius: 2,
+    elevation: 2,
   },
-  vImagenMascota: {
-    marginRight: 15,
-  },
-  imagenesmascotas: {
+  mascotaImageContainer: {
     width: 90,
     height: 90,
+    borderRadius: 10,
+    overflow: "hidden",
+    backgroundColor: "#f2f2f2",
+    margin: 15,
   },
-  nombremascota: {
+  mascotaImage: {
+    width: "100%",
+    height: "100%",
+  },
+  mascotaInfoContainer: {
+    flex: 1,
+    justifyContent: "center",
+    paddingVertical: 10,
+  },
+  mascotaName: {
     fontWeight: "bold",
+    fontSize: 18,
+    marginBottom: 5,
   },
-  direccionmascota: {
-    paddingTop: 2,
+  mascotaAddress: {
     color: "grey",
+    fontSize: 14,
+    marginBottom: 2,
   },
-  descripcionanimal: {
-    paddingTop: 2,
+  mascotaPhone: {
     color: "grey",
-    width: "75%",
+    fontSize: 14,
+    marginBottom: 2,
+  },
+  mascotaDescription: {
+    color: "grey",
+    fontSize: 14,
+    marginBottom: 2,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "gray", // aquí puedes cambiar el color de fondo de la vista
+  },
+  flatlist: {
+    paddingTop: 15,
   },
 });

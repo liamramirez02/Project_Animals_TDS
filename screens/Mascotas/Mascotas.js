@@ -143,7 +143,7 @@ return (
       />
       )
       }
-        <Loading isVisible={loading} text="Cargando restaurantes..."/>
+        <Loading isVisible={loading} text="Cargando mascotas..."/>
     </View>
   )
 }

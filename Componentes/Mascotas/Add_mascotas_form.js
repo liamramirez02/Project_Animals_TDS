@@ -447,7 +447,7 @@ inputWhatsApp:{
 },
 btnmascotas: {
    margin: 40,
-   backgroundColor: "#21000f",
+   backgroundColor: "#318CE7",
    borderRadius: 15
 },
 imagenes: {

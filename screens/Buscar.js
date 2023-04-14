@@ -181,7 +181,9 @@ searchBarContainer: {
     borderRadius: 10,
     marginBottom: 16,
     elevation: 2,
-  },
+    width: "90%",
+    left:20,
+    },
   image: {
     width: 64,
     height: 64,

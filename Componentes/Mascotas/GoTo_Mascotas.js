@@ -174,7 +174,7 @@ function MascotaInfo({ name, location, address, email, phone }){
                       <Icon
                           type="material-community"
                           name={item.iconName}
-                          color="#442484"
+                          color="#318CE7"
                       />
                       <ListItem.Content>
                           <ListItem.Title>{item.text}</ListItem.Title>
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   viewMascotaContainer:{
-    flexDirection: "row"
+    flexDirection: "row",
   },
   descriptionMascota:{
     marginTop: 5,
@@ -214,19 +214,19 @@ const styles = StyleSheet.create({
     textAlign: 'justify'
   },
   nameMascota:{
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   viewMascotaInfo:{
     margin: 15,
-    marginTop: 25
+    marginTop: 25,
   },
   MascotaInfoTitle:{
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   containerListItem:{
-    borderBottomColor: "#a376c7",
-    borderBottomWidth: 1
+    borderBottomColor: "#318CE7",
+    borderBottomWidth: 2
   },
   viewFavorite: {
     position: "absolute",

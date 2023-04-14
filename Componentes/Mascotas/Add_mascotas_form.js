@@ -321,7 +321,7 @@ function Form_add({
           containerStyle={styles.countryPicker}
           countryCode={FData.country}
           onSelect={(country) => {
-          setFData({...FData, "country":country.cca2, "callingCode": country.callingCode[0]}) //-------------ACA HAY ERROR-------------
+          setFData({...FData, "country":country.cca2, "callingCode": country.callingCode[0]})
             // setCountry(country.cca2) //cca2: es el codigo internacional del pais de dos caracteres
             // setCallingcode(country.callingCode[0]) //arreglo de los codigos internacionales
           }}

@@ -43,7 +43,7 @@ export default function Reviews({navigation, idMascota}) {
                 icon={{
                     type: "material-community",
                     name: "square-edit-outline",
-                    color: "#a376c7"
+                    color: "#318CE7"
                 }}/>
         ): (
             <Text
@@ -104,15 +104,16 @@ const styles = StyleSheet.create({
         backgroundColor: "transparent"
     },
     btntittlecomentario: {
-        color: "#a376c7"
+        color: "#318CE7"
     },
     mustLoginText: {
         textAlign: "center", 
-        color: "#a376c7", 
+        color: "#318CE7", 
         padding: 20
     },
     loginText : {
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "#318CE7",
     },
     viewReview: {
         flexDirection: "row",

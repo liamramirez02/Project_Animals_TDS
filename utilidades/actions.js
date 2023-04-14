@@ -302,7 +302,7 @@ export const searchMascotas = async(criteria) =>
     return result
 }
 
-  export const getLocations = async (collectionName) => {
+  export const getLocations = async (collectionName) => { //obtener localizacion de la mascota
     const querySnapshot = await firebase.firestore().collection(collectionName).get()
     const locations = [];
     querySnapshot.forEach((doc) => {
